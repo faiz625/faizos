@@ -134,7 +134,7 @@ export default function Home() {
       <section className="pt-24 px-6 text-center">
         <h1 className="text-4xl md:text-6xl font-semibold tracking-tight">FaizOS</h1>
         <p className="mt-3 text-white/70">
-          Agentic portfolio. Practical demos. Zero fluff.
+          Personal portfolio with some demos, projects, and photography.
           Press <kbd className="px-2 py-1 rounded bg-white/10">⌘K</kbd> or use the dock below.
         </p>
         <div className="mt-5 flex items-center justify-center gap-3">
@@ -146,68 +146,125 @@ export default function Home() {
       </section>
 
       {/* Windows */}
-      {show.about && (
-        <DesktopWindow title="About — Faiz" onClose={close("about")} initialX={100} initialY={140} className="w-[800px]">
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-xl font-semibold mb-3 text-sky-300">Who I Am</h3>
-              <p className="text-white/90 leading-relaxed">
-                I'm a passionate technologist who bridges the gap between cutting-edge AI research and practical business applications. 
-                My work focuses on building intelligent systems that solve real-world problems, from analytics copilots that help 
-                enterprises understand their data to forecasting pipelines that optimize content strategies.
-              </p>
-            </div>
-            
-            <div>
-              <h3 className="text-xl font-semibold mb-3 text-sky-300">What I Do</h3>
-              <p className="text-white/90 leading-relaxed">
-                I specialize in designing and implementing agentic AI systems, multi-modal ML pipelines, and scalable data architectures. 
-                My expertise spans from prototype development to production deployment, with a focus on creating solutions that are 
-                both technically sophisticated and business-ready.
-              </p>
-            </div>
+{show.about && (
+  <DesktopWindow
+    title="About — Faiz"
+    onClose={close("about")}
+    initialX={100}
+    initialY={140}
+    className="w-[800px]"
+  >
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-xl font-semibold mb-3 text-sky-300">Who I Am</h3>
+        <p className="text-white/90 leading-relaxed">
+          I'm someone who loves taking complex ideas and turning them into things that actually work. 
+          I sit at the intersection of AI and engineering, building tools that are practical, fast, and actually reliable. 
+          Whether it’s an analytics copilot or an ML workflow that finally solves a pain point, I like creating things that make people say, 
+          “Wait… this is actually helpful.”
+        </p>
+      </div>
 
-            <div>
-              <h3 className="text-xl font-semibold mb-3 text-sky-300">Interests & Hobbies</h3>
-              <div className="grid grid-cols-2 gap-4 text-white/80">
-                <div>
-                  <h4 className="font-medium text-white mb-2">Technical Interests</h4>
-                  <ul className="space-y-1 text-sm">
-                    <li>• Large Language Models & Reasoning</li>
-                    <li>• Computer Vision & Multimodal AI</li>
-                    <li>• Distributed Systems & MLOps</li>
-                    <li>• Financial Technology & Trading</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-medium text-white mb-2">Personal Interests</h4>
-                  <ul className="space-y-1 text-sm">
-                    <li>• Photography & Visual Storytelling</li>
-                    <li>• Algorithmic Trading Strategies</li>
-                    <li>• Open Source Contributions</li>
-                    <li>• Tech Community Building</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+      {/* What I Do */}
+      <div>
+        <h3 className="text-xl font-semibold mb-3 text-sky-300">What I Do</h3>
+        <p className="text-white/90 leading-relaxed">
+          I build agentic AI systems, multimodal ML pipelines, and scalable data setups end-to-end.
+          A lot of my work blends research ideas with real production needs, starting with quick experiments 
+          and then turning them into systems that operate consistently and perform effectively. My focus is always the same:
+          build things that solve real problems and don’t fall apart when you need them.
+        </p>
+      </div>
 
-            <div>
-              <h3 className="text-xl font-semibold mb-3 text-sky-300">Philosophy</h3>
-              <p className="text-white/90 leading-relaxed">
-                I believe in building technology that amplifies human capabilities rather than replacing them. Whether it's an AI 
-                assistant that helps analysts discover insights or a computer vision tool that aids accessibility, I'm driven by 
-                creating solutions that make complex tasks more intuitive and powerful outcomes more accessible.
-              </p>
-            </div>
+      {/* Skills */}
+      <div>
+        <h3 className="text-xl font-semibold mb-3 text-sky-300">Skills</h3>
+        <div className="grid grid-cols-2 gap-6 text-white/80 text-sm">
 
-            <div className="pt-4 border-t border-white/10">
-              <p className="text-white/60 text-sm">
-                Explore my work through the Projects tab, try interactive demos, or check out my photography collection.
-              </p>
-            </div>
+          <div>
+            <h4 className="font-medium text-white mb-2">Programming</h4>
+            <ul className="space-y-1">
+              <li>• Python, SQL, R</li>
+              <li>• Java, C, C++</li>
+              <li>• JavaScript, HTML, CSS</li>
+            </ul>
           </div>
-        </DesktopWindow>
-      )}
+
+          <div>
+            <h4 className="font-medium text-white mb-2">Machine Learning & AI</h4>
+            <ul className="space-y-1">
+              <li>• PyTorch, TensorFlow, Scikit-learn, XGBoost</li>
+              <li>• LLMs (GPT, Gemini, BERT), RAG, LangChain</li>
+              <li>• Vertex AI, Model deployment, MLOps</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-medium text-white mb-2">Data Engineering</h4>
+            <ul className="space-y-1">
+              <li>• BigQuery, dbt, Airflow</li>
+              <li>• Pipeline orchestration & ETL</li>
+              <li>• Docker, CI/CD, monitoring</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-medium text-white mb-2">Development & Tools</h4>
+            <ul className="space-y-1">
+              <li>• React, Flask, FastAPI, Django, Streamlit</li>
+              <li>• REST APIs, Git/GitHub</li>
+              <li>• JIRA, Confluence, Power BI</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      {/* Interests */}
+      <div>
+        <h3 className="text-xl font-semibold mb-3 text-sky-300">Interests & Hobbies</h3>
+        <div className="grid grid-cols-2 gap-4 text-white/80">
+          <div>
+            <h4 className="font-medium text-white mb-2">Technical Interests</h4>
+            <ul className="space-y-1 text-sm">
+              <li>• Large Language Models & Reasoning</li>
+              <li>• Computer Vision & Multimodal Systems</li>
+              <li>• Distributed Systems & MLOps</li>
+              <li>• Quantitative/Trading Tooling</li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-medium text-white mb-2">Personal Interests</h4>
+            <ul className="space-y-1 text-sm">
+              <li>• Photography & Visual Storytelling</li>
+              <li>• Market Analysis & Trading</li>
+              <li>• Open Source Projects</li>
+              <li>• Community Building & Side Projects</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Philosophy */}
+      <div>
+        <h3 className="text-xl font-semibold mb-3 text-sky-300">Philosophy</h3>
+        <p className="text-white/90 leading-relaxed">
+          I like building technology that helps people think clearly, move faster, and do more — rather than replace them.
+          Good AI should feel like a teammate, not a black box. If an idea feels intuitive and helps someone be more efficient, 
+          that’s the kind of system I want to build.
+        </p>
+      </div>
+
+      {/* Footer */}
+      <div className="pt-4 border-t border-white/10">
+        <p className="text-white/60 text-sm">
+          You can explore my projects, try the demos, or check out my photography if you want to see more of what I do.
+        </p>
+      </div>
+
+    </div>
+  </DesktopWindow>
+)}
 
       {show.projects && (
         <DesktopWindow title="Projects — Selected (anonymized)" onClose={close("projects")} initialX={80} initialY={180} className="w-[900px]">
