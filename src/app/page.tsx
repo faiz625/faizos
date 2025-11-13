@@ -1,65 +1,416 @@
-import Image from "next/image";
+
+"use client";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
+import Particles from "@/components/Particles";
+import DesktopWindow from "@/components/DesktopWindow";
+import Dock, { defaultDock } from "@/components/Dock";
+import CommandK from "@/components/CommandK";
+import React, { useState, useRef, useEffect } from "react";
+import { Grid, ProjectItem } from "@/components/SectionCards";
+import DemosPanel from "@/components/DemosPanel";
+import TradingPanel from "@/components/TradingPanel";
+import ContactForm from "@/components/ContactForm";
+import ConfidentialFooter from "@/components/ConfidentialFooter";
+
+// --- Dynamic Resizable Modal for Architecture ---
+type ResizableArchModalProps = {
+  open: boolean;
+  title: string;
+  onClose: () => void;
+  children: React.ReactNode;
+};
+
+function ResizableArchModal({ open, title, onClose, children }: ResizableArchModalProps) {
+  const [size, setSize] = useState({ width: 700, height: 600 });
+  const [dragging, setDragging] = useState(false);
+  const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null);
+  const [startSize, setStartSize] = useState<{ width: number; height: number }>({ width: 700, height: 600 });
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  // Handle resize
+  const onMouseDown = (e: React.MouseEvent) => {
+    setDragging(true);
+    setDragStart({ x: e.clientX, y: e.clientY });
+    setStartSize({ ...size });
+    e.preventDefault();
+    e.stopPropagation();
+  };
+  const onMouseMove = (e: MouseEvent) => {
+    if (!dragging || !dragStart) return;
+    setSize({
+      width: Math.max(340, Math.min(window.innerWidth - 64, startSize.width + (e.clientX - dragStart.x))),
+      height: Math.max(320, Math.min(window.innerHeight - 64, startSize.height + (e.clientY - dragStart.y))),
+    });
+  };
+  const onMouseUp = () => setDragging(false);
+
+  // Attach/detach listeners
+  useEffect(() => {
+    if (dragging) {
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("mouseup", onMouseUp);
+    } else {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+    }
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+    };
+  }, [dragging, onMouseMove]);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+      <div
+        ref={modalRef}
+        className="bg-[#18181b] text-white rounded-2xl shadow-2xl relative border border-white/10 flex flex-col"
+        style={{ width: size.width, height: size.height, minWidth: 340, minHeight: 320, maxWidth: '95vw', maxHeight: '90vh' }}
+      >
+        <button
+          className="absolute top-4 right-4 text-white text-lg bg-black/30 hover:bg-black/60 rounded-full w-8 h-8 flex items-center justify-center transition leading-none"
+          onClick={onClose}
+          aria-label="Close"
+        >
+          ×
+        </button>
+        <div className="p-8 pr-16 flex-1 flex flex-col min-h-0">
+          <h2 className="text-2xl font-bold mb-6 tracking-tight text-sky-300 drop-shadow">{title}</h2>
+          <div className="flex-1 min-h-0 min-w-0 overflow-auto">{children}</div>
+        </div>
+        {/* Resize handle */}
+        <div
+          onMouseDown={onMouseDown}
+          className="absolute right-2 bottom-2 w-6 h-6 cursor-nwse-resize z-10 flex items-end justify-end"
+          style={{ userSelect: dragging ? "none" : "auto" }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M5 19L19 5M9 19H19V9" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
+  const [show, setShow] = useState({
+    about: true,
+    projects: false,
+    demos: false,
+    trading: false,
+    photography: false,
+    contact: false,
+  });
+  const [archModal, setArchModal] = useState<{ open: boolean; title: string; content: string } | null>(null);
+
+  const open = (key: keyof typeof show) => setShow((s) => ({ ...s, [key]: true }));
+  const close = (key: keyof typeof show) => () => setShow((s) => ({ ...s, [key]: false }));
+
+  const dock = defaultDock({
+    about: () => open("about"),
+    projects: () => open("projects"),
+    demos: () => open("demos"),
+    trading: () => open("trading"),
+    photography: () => open("photography"),
+    contact: () => open("contact"),
+  });
+
+  const commands = [
+    { id: "about", label: "About Me", action: () => open("about") },
+    { id: "projects", label: "Open Projects", action: () => open("projects") },
+    { id: "demos", label: "Open AI Demos", action: () => open("demos") },
+    { id: "trading", label: "Open Trading", action: () => open("trading") },
+    { id: "photography", label: "Open Photography", action: () => open("photography") },
+    { id: "contact", label: "Open Contact", action: () => open("contact") },
+  ];
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="relative min-h-screen">
+      <Particles />
+
+      {/* Hero */}
+      <section className="pt-24 px-6 text-center">
+        <h1 className="text-4xl md:text-6xl font-semibold tracking-tight">FaizOS</h1>
+        <p className="mt-3 text-white/70">
+          Agentic portfolio. Practical demos. Zero fluff.
+          Press <kbd className="px-2 py-1 rounded bg-white/10">⌘K</kbd> or use the dock below.
+        </p>
+        <div className="mt-5 flex items-center justify-center gap-3">
+          <button onClick={() => open("about")} className="px-4 py-2 rounded-lg bg-white/10 border border-white/10 hover:bg-white/15 text-sm">About Me</button>
+          <button onClick={() => open("projects")} className="px-4 py-2 rounded-lg bg-white/10 border border-white/10 hover:bg-white/15 text-sm">View Projects</button>
+          <button onClick={() => open("demos")} className="px-4 py-2 rounded-lg bg-white/10 border border-white/10 hover:bg-white/15 text-sm">Try Demos</button>
+          <button onClick={() => open("contact")} className="px-4 py-2 rounded-lg bg-white/10 border border-white/10 hover:bg-white/15 text-sm">Contact</button>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+
+      {/* Windows */}
+      {show.about && (
+        <DesktopWindow title="About — Faiz" onClose={close("about")} initialX={100} initialY={140} className="w-[800px]">
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-xl font-semibold mb-3 text-sky-300">Who I Am</h3>
+              <p className="text-white/90 leading-relaxed">
+                I'm a passionate technologist who bridges the gap between cutting-edge AI research and practical business applications. 
+                My work focuses on building intelligent systems that solve real-world problems, from analytics copilots that help 
+                enterprises understand their data to forecasting pipelines that optimize content strategies.
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="text-xl font-semibold mb-3 text-sky-300">What I Do</h3>
+              <p className="text-white/90 leading-relaxed">
+                I specialize in designing and implementing agentic AI systems, multi-modal ML pipelines, and scalable data architectures. 
+                My expertise spans from prototype development to production deployment, with a focus on creating solutions that are 
+                both technically sophisticated and business-ready.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-semibold mb-3 text-sky-300">Interests & Hobbies</h3>
+              <div className="grid grid-cols-2 gap-4 text-white/80">
+                <div>
+                  <h4 className="font-medium text-white mb-2">Technical Interests</h4>
+                  <ul className="space-y-1 text-sm">
+                    <li>• Large Language Models & Reasoning</li>
+                    <li>• Computer Vision & Multimodal AI</li>
+                    <li>• Distributed Systems & MLOps</li>
+                    <li>• Financial Technology & Trading</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-medium text-white mb-2">Personal Interests</h4>
+                  <ul className="space-y-1 text-sm">
+                    <li>• Photography & Visual Storytelling</li>
+                    <li>• Algorithmic Trading Strategies</li>
+                    <li>• Open Source Contributions</li>
+                    <li>• Tech Community Building</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-semibold mb-3 text-sky-300">Philosophy</h3>
+              <p className="text-white/90 leading-relaxed">
+                I believe in building technology that amplifies human capabilities rather than replacing them. Whether it's an AI 
+                assistant that helps analysts discover insights or a computer vision tool that aids accessibility, I'm driven by 
+                creating solutions that make complex tasks more intuitive and powerful outcomes more accessible.
+              </p>
+            </div>
+
+            <div className="pt-4 border-t border-white/10">
+              <p className="text-white/60 text-sm">
+                Explore my work through the Projects tab, try interactive demos, or check out my photography collection.
+              </p>
+            </div>
+          </div>
+        </DesktopWindow>
+      )}
+
+      {show.projects && (
+        <DesktopWindow title="Projects — Selected (anonymized)" onClose={close("projects")} initialX={80} initialY={180} className="w-[900px]">
+          <Grid
+            items={[
+              {
+                title: "Internal Analytics Copilot (anonymized)",
+                body:
+                  "Built a modular, multi-agent assistant for a large enterprise to help analysts investigate anomalies and surface explainability artifacts. Public site shows generalized flow only; specific datasets, dashboards, and metrics are withheld for confidentiality.",
+                url: "https://github.com/faiz625/Agentic-Insights-Engine"
+              },
+              {
+                title: "Signal-Fusion Forecasting",
+                body:
+                  "Designed a forecasting pipeline that blends behavioral and engagement signals to prioritize content and campaigns. This description is generalized; internal performance figures and data sources are not disclosed.",
+                architecture: "/architecture/ARCHITECTURE_Signal-Fusion-Forecasting.md"
+              },
+              {
+                title: "Assistive Eye-Gaze Cursor",
+                body:
+                  "Computer-vision tool that converts eye movement into cursor control using commodity webcams. Demoed interactively; no user data retained.",
+                url: "https://github.com/faiz625/Capstone-2023/tree/main"
+              },
+              {
+                title: "Long-form Story Generator",
+                body:
+                  "LLM-driven web tool for structured, coherent narratives from prompts. Public demo uses synthetic inputs and mock storage.",
+                architecture: "/architecture/ARCHITECTURE_Long-form-Story-Generator.md"
+              },
+            ] as ProjectItem[]}
+            onItemClick={async (item: ProjectItem) => {
+              if (item.architecture) {
+                const res = await fetch(item.architecture);
+                const text = await res.text();
+                setArchModal({ open: true, title: item.title + " — Architecture", content: text });
+              } else if (item.url) {
+                window.open(item.url, "_blank");
+              }
+            }}
+          />
+          <div className="mt-4 text-xs text-white/60">
+            Note: Project details are intentionally generalized to protect employer/client confidentiality.
+          </div>
+          {archModal?.open && (
+            <ResizableArchModal
+              open={archModal.open}
+              title={archModal.title}
+              onClose={() => setArchModal(null)}
+            >
+              <div className="prose prose-invert text-base leading-relaxed min-w-0">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{archModal.content}</ReactMarkdown>
+              </div>
+            </ResizableArchModal>
+          )}
+        </DesktopWindow>
+      )}
+
+      {show.demos && (
+        <DesktopWindow title="AI Demos — Interactive" onClose={close("demos")} initialX={820} initialY={160} className="w-[720px]">
+          <DemosPanel />
+        </DesktopWindow>
+      )}
+
+      {show.trading && (
+        <DesktopWindow
+          title="Trading — Live Template"
+          onClose={close("trading")}
+          initialX={120}
+          initialY={80}
+          className="w-[1100px] h-[750px] max-h-[85vh]"
+        >
+          <TradingPanel />
+        </DesktopWindow>
+      )}
+
+      {show.photography && (
+        <DesktopWindow title="Photography — Visual Stories" onClose={close("photography")} initialX={200} initialY={120} className="w-[900px]">
+          <div className="space-y-6">
+            <div>
+              <p className="text-white/80 mb-6 leading-relaxed">
+                Photography is my creative outlet, a way to capture moments, explore composition, and tell stories through visual narratives. 
+                From street photography to architectural studies, I enjoy documenting the intersection of technology and human experience.
+              </p>
+            </div>
+
+            <div className="text-center mb-6">
+              <a 
+                href="https://vsco.co/zaif-/gallery" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-6 py-3 bg-sky-600 hover:bg-sky-700 text-white rounded-lg font-medium transition-colors"
+              >
+                View Full Portfolio on VSCO
+                <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M17 6l-7 7M17 6h-5M17 6v5" />
+                </svg>
+              </a>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4">
+              {/* Your actual photos */}
+              <div className="rounded-lg overflow-hidden aspect-square bg-gray-800">
+                <img 
+                  src="/photography/IMG_8749.jpeg" 
+                  alt="Photography sample 1" 
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 cursor-pointer"
+                  onClick={() => window.open('/photography/IMG_8749.jpeg', '_blank')}
+                />
+              </div>
+              <div className="rounded-lg overflow-hidden aspect-square bg-gray-800">
+                <img 
+                  src="/photography/IMG_8750.jpeg" 
+                  alt="Photography sample 2" 
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 cursor-pointer"
+                  onClick={() => window.open('/photography/IMG_8750.jpeg', '_blank')}
+                />
+              </div>
+              <div className="rounded-lg overflow-hidden aspect-square bg-gray-800">
+                <img 
+                  src="/photography/IMG_8751.jpeg" 
+                  alt="Photography sample 3" 
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 cursor-pointer"
+                  onClick={() => window.open('/photography/IMG_8751.jpeg', '_blank')}
+                />
+              </div>
+              <div className="rounded-lg overflow-hidden aspect-square bg-gray-800">
+                <img 
+                  src="/photography/IMG_8752.jpeg" 
+                  alt="Photography sample 4" 
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 cursor-pointer"
+                  onClick={() => window.open('/photography/IMG_8752.jpeg', '_blank')}
+                />
+              </div>
+              <div className="rounded-lg overflow-hidden aspect-square bg-gray-800">
+                <img 
+                  src="/photography/IMG_8755.jpeg" 
+                  alt="Photography sample 5" 
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 cursor-pointer"
+                  onClick={() => window.open('/photography/IMG_8755.jpeg', '_blank')}
+                />
+              </div>
+              <div 
+                className="rounded-lg aspect-square bg-gradient-to-br from-sky-700/30 to-sky-800/30 border-2 border-dashed border-sky-500/30 flex flex-col items-center justify-center p-4 text-center cursor-pointer hover:bg-gradient-to-br hover:from-sky-600/40 hover:to-sky-700/40 transition-all duration-300"
+                onClick={() => window.open('https://vsco.co/zaif-/gallery', '_blank')}
+              >
+                <div className="w-8 h-8 bg-sky-500/30 rounded mb-2"></div>
+                <span className="text-sky-300/60 text-xs">More on VSCO</span>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold mb-3 text-sky-300">Equipment & Style</h3>
+              <div className="grid grid-cols-2 gap-6 text-white/80">
+                <div>
+                  <h4 className="font-medium text-white mb-2">Current Setup</h4>
+                  <ul className="space-y-1 text-sm">
+                    <li>• Nikon D5300 DSLR Camera</li>
+                    <li>• AF-S DX NIKKOR 35mm f/1.8G Prime</li>
+                    <li>• AF-S DX NIKKOR 18-140mm f/3.5-5.6G VR</li>
+                    <li>• SB-700 Speedlight Flash</li>
+                    <li>• Manfrotto PIXI Mini Tripod</li>
+                    <li>• Polarizing & ND Filters</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-medium text-white mb-2">Photography Style</h4>
+                  <ul className="space-y-1 text-sm">
+                    <li>• Natural light portraits</li>
+                    <li>• Candid moments and expressions</li>
+                    <li>• Vibrant landscape compositions</li>
+                    <li>• Street art and cultural documentation</li>
+                    <li>• Golden hour and blue hour shots</li>
+                    <li>• Shallow depth of field techniques</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-white/10 text-center">
+              <p className="text-white/60 text-sm mb-3">
+                Full collection available on VSCO. Click the button above to explore the complete portfolio.
+              </p>
+              <p className="text-white/50 text-xs">
+                Note: VSCO doesn't provide public API access for embedding images directly, but you can view all work on their platform.
+              </p>
+            </div>
+          </div>
+        </DesktopWindow>
+      )}
+
+      {/* Resume window removed */}
+
+      {show.contact && (
+        <DesktopWindow title="Contact — Email Faiz" onClose={close("contact")} initialX={1040} initialY={300} className="w-[520px]">
+          <ContactForm />
+        </DesktopWindow>
+      )}
+
+      <ConfidentialFooter />
+
+      {/* Dock + Command palette */}
+      <Dock items={dock} />
+      <CommandK commands={commands} />
+    </main>
   );
 }
