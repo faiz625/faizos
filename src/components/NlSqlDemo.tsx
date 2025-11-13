@@ -146,7 +146,7 @@ export default function NlSqlDemo() {
   useEffect(() => {
     (async () => {
       const SQL = await initSqlJs({
-        locateFile: (f) => `/sql-wasm.wasm`,
+        locateFile: (f: string) => `/sql-wasm.wasm`,
       });
       setSqljs(SQL);
       const db = new SQL.Database();
