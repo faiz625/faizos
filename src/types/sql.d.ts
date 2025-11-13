@@ -21,6 +21,8 @@ declare module 'sql.js' {
     bind(values?: any[]): boolean;
     reset(): void;
     freemem(): void;
+    run(params?: any[]): void;
+    free(): void;
   }
   
   export interface QueryResults {
