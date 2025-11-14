@@ -271,27 +271,27 @@ export default function NlSqlDemo() {
   return (
     <div className="space-y-3 text-sm">
       <div>
-        <label className="block mb-2 font-medium">Describe your query</label>
+        <label className="block mb-2 font-medium text-gray-800 dark:text-white">Describe your query</label>
         <textarea
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder='e.g., "top 10 customers by revenue in the last 30 days"'
-          className="w-full h-24 rounded-lg bg-white/5 border border-white/10 p-2"
+          className="w-full h-24 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 p-2 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-white/50"
         />
       </div>
 
       <div>
         <div className="flex items-center justify-between mb-2">
-          <span className="font-medium">SQL (editable)</span>
+          <span className="font-medium text-gray-800 dark:text-white">SQL (editable)</span>
           <div className="flex gap-2">
-            <button onClick={copySQL} className="px-3 py-1 rounded bg-white/10 border border-white/10 hover:bg-white/15">Copy SQL</button>
-            <button onClick={run} className="px-3 py-1 rounded bg-white/10 border border-white/10 hover:bg-white/15">Run</button>
+            <button onClick={copySQL} className="px-3 py-1 rounded bg-gray-200 dark:bg-white/10 border border-gray-300 dark:border-white/10 text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-white/15">Copy SQL</button>
+            <button onClick={run} className="px-3 py-1 rounded bg-gray-200 dark:bg-white/10 border border-gray-300 dark:border-white/10 text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-white/15">Run</button>
           </div>
         </div>
         <textarea
           value={parsedSQL}
           readOnly
-          className="w-full h-28 rounded-lg bg-black/60 border border-white/10 p-2 font-mono text-xs"
+          className="w-full h-28 rounded-lg bg-gray-100 dark:bg-black/60 border border-gray-300 dark:border-white/10 p-2 font-mono text-xs text-gray-900 dark:text-white"
         />
       </div>
 
@@ -299,26 +299,26 @@ export default function NlSqlDemo() {
 
       <div className="border-t border-white/10 pt-3">
         <div className="flex items-center justify-between">
-          <span className="font-medium">Results</span>
-          <button onClick={exportCSV} className="px-3 py-1 rounded bg-white/10 border border-white/10 hover:bg-white/15">Export CSV</button>
+          <span className="font-medium text-gray-800 dark:text-white">Results</span>
+          <button onClick={exportCSV} className="px-3 py-1 rounded bg-gray-200 dark:bg-white/10 border border-gray-300 dark:border-white/10 text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-white/15">Export CSV</button>
         </div>
         {!rows.length ? (
-          <div className="text-white/60 mt-2">No results yet. Run a query.</div>
+          <div className="text-gray-600 dark:text-white/60 mt-2">No results yet. Run a query.</div>
         ) : (
           <div className="overflow-auto mt-2">
             <table className="min-w-full text-xs">
-              <thead className="bg-white/5">
+              <thead className="bg-gray-200 dark:bg-white/5">
                 <tr>
                   {Object.keys(rows[0]).map((h) => (
-                    <th key={h} className="text-left px-2 py-1 border-b border-white/10">{h}</th>
+                    <th key={h} className="text-left px-2 py-1 border-b border-gray-300 dark:border-white/10 text-gray-800 dark:text-white">{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {rows.map((r, i) => (
-                  <tr key={i} className="odd:bg-white/5">
+                  <tr key={i} className="odd:bg-gray-100 dark:odd:bg-white/5">
                     {Object.keys(rows[0]).map((h) => (
-                      <td key={h} className="px-2 py-1 border-b border-white/10">{String(r[h])}</td>
+                      <td key={h} className="px-2 py-1 border-b border-gray-300 dark:border-white/10 text-gray-900 dark:text-white">{String(r[h])}</td>
                     ))}
                   </tr>
                 ))}
@@ -326,7 +326,7 @@ export default function NlSqlDemo() {
             </table>
           </div>
         )}
-        <div className="text-white/60 text-xs mt-2">
+        <div className="text-gray-600 dark:text-white/60 text-xs mt-2">
           Demo note: data is synthetic; employer/client confidentiality preserved.
         </div>
       </div>

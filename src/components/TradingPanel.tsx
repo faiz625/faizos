@@ -25,10 +25,10 @@ function validateCombo(range: string, interval: string) {
 /* ================= Shared field components (dark theme) ================= */
 
 function labelCls(extra = "") {
-  return `text-[11px] uppercase tracking-wide text-white/70 mb-1 ${extra}`;
+  return `text-[11px] uppercase tracking-wide text-gray-600 dark:text-white/70 mb-1 ${extra}`;
 }
 function boxCls(extra = "") {
-  return `w-full rounded-md bg-black/40 border border-white/20 text-white placeholder-white/50 outline-none focus:ring-2 focus:ring-sky-400/40 focus:border-sky-400/40 transition ${extra}`;
+  return `w-full rounded-md bg-gray-100 dark:bg-black/40 border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-white/50 outline-none focus:ring-2 focus:ring-sky-400/40 focus:border-sky-400/40 transition ${extra}`;
 }
 
 function LabeledInput(props: {
@@ -67,7 +67,7 @@ function LabeledCheckbox(props: {
     <label className="flex items-center gap-2 select-none">
       <input id={id} type="checkbox" checked={checked} onChange={onChange}
         className="h-4 w-4 rounded bg-black/40 border border-white/30 accent-sky-400" />
-      <span className="text-[12px] text-white/80">{label}</span>
+      <span className="text-[12px] text-gray-700 dark:text-white/80">{label}</span>
     </label>
   );
 }
@@ -139,9 +139,9 @@ function TemplateGen() {
 
 function Info({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg bg-white/5 border border-white/10 p-2">
-      <div className="text-[10px] uppercase tracking-wide text-white/60">{label}</div>
-      <div className="font-medium">{value}</div>
+    <div className="rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 p-2">
+      <div className="text-[10px] uppercase tracking-wide text-gray-600 dark:text-white/60">{label}</div>
+      <div className="font-medium text-gray-900 dark:text-white">{value}</div>
     </div>
   );
 }
@@ -276,7 +276,7 @@ function PaperBot() {
       <div className="border-t border-white/10 pt-3">
         <div className="font-medium mb-2">Trades</div>
         {!trades.length ? (
-          <div className="text-white/60 text-xs">No trades.</div>
+          <div className="text-gray-600 dark:text-white/60 text-xs">No trades.</div>
         ) : (
           <div className="max-h-64 overflow-auto rounded-lg border border-white/10">
             <table className="text-xs w-full">
@@ -299,7 +299,7 @@ function PaperBot() {
             </table>
           </div>
         )}
-        <div className="text-white/60 text-xs mt-2">Paper trading only. Educational use.</div>
+        <div className="text-gray-600 dark:text-white/60 text-xs mt-2">Paper trading only. Educational use.</div>
         {err && <div className="text-rose-300 text-xs mt-2">Error: {err}</div>}
       </div>
     </div>
@@ -467,9 +467,9 @@ function Td({ children, className = "" }: any) {
 
 function Metric({ label, value, color = "" }: { label: string; value: string; color?: string }) {
   return (
-    <div className="rounded-lg bg-white/5 border border-white/10 p-3">
-      <div className="text-[10px] uppercase tracking-wide text-white/60">{label}</div>
-      <div className={`text-sm font-semibold ${color}`}>{value}</div>
+    <div className="rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 p-3">
+      <div className="text-[10px] uppercase tracking-wide text-gray-600 dark:text-white/60">{label}</div>
+      <div className={`text-sm font-semibold text-gray-900 dark:text-white ${color}`}>{value}</div>
     </div>
   );
 }

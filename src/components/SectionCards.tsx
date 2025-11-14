@@ -17,9 +17,9 @@ export function Grid({ items, onItemClick }: { items: ProjectItem[]; onItemClick
             className="block text-left w-full"
             onClick={() => onItemClick?.(it)}
           >
-            <Card className="bg-white/5 border-white/10 hover:ring-2 hover:ring-sky-400/40 transition">
-              <CardHeader><CardTitle className="text-base">{it.title}</CardTitle></CardHeader>
-              <CardContent className="text-sm text-white/80">{it.body}</CardContent>
+            <Card className="bg-black/5 dark:bg-white/5 border-gray-200 dark:border-white/10 hover:ring-2 hover:ring-sky-400/40 transition">
+              <CardHeader><CardTitle className="text-base text-gray-900 dark:text-white">{it.title}</CardTitle></CardHeader>
+              <CardContent className="text-sm text-gray-700 dark:text-white/80">{it.body}</CardContent>
             </Card>
           </button>
         ) : it.url ? (
@@ -30,15 +30,15 @@ export function Grid({ items, onItemClick }: { items: ProjectItem[]; onItemClick
             rel="noopener noreferrer"
             className="block"
           >
-            <Card className="bg-white/5 border-white/10 hover:ring-2 hover:ring-sky-400/40 transition">
-              <CardHeader><CardTitle className="text-base">{it.title}</CardTitle></CardHeader>
-              <CardContent className="text-sm text-white/80">{it.body}</CardContent>
+            <Card className="bg-black/5 dark:bg-white/5 border-gray-200 dark:border-white/10 hover:ring-2 hover:ring-sky-400/40 transition">
+              <CardHeader><CardTitle className="text-base text-gray-900 dark:text-white">{it.title}</CardTitle></CardHeader>
+              <CardContent className="text-sm text-gray-700 dark:text-white/80">{it.body}</CardContent>
             </Card>
           </a>
         ) : (
-          <Card key={it.title} className="bg-white/5 border-white/10">
-            <CardHeader><CardTitle className="text-base">{it.title}</CardTitle></CardHeader>
-            <CardContent className="text-sm text-white/80">{it.body}</CardContent>
+          <Card key={it.title} className="bg-black/5 dark:bg-white/5 border-gray-200 dark:border-white/10">
+            <CardHeader><CardTitle className="text-base text-gray-900 dark:text-white">{it.title}</CardTitle></CardHeader>
+            <CardContent className="text-sm text-gray-700 dark:text-white/80">{it.body}</CardContent>
           </Card>
         )
       ))}
