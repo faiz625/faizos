@@ -1,6 +1,13 @@
 "use client";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { 
+  SiPython, SiMysql, SiCplusplus, SiJavascript, SiR, SiC,
+  SiGooglecloud, SiDbt, SiApacheairflow, SiDocker, SiKubernetes, SiApachespark, SiApachekafka,
+  SiTensorflow, SiPytorch, SiScikitlearn, SiOpenai, SiLangchain,
+  SiReact, SiFlask, SiDjango, SiStreamlit, SiFastapi, SiGit, SiGithub, SiJira, SiLatex
+} from 'react-icons/si';
+import { FaDatabase, FaCode, FaCog, FaJava, FaBrain, FaRocket, FaBook, FaRobot, FaGem, FaCloud, FaLink } from 'react-icons/fa';
 
 import Particles from "@/components/Particles";
 import React, { useState, useEffect } from "react";
@@ -45,6 +52,10 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState("home");
   const [archModal, setArchModal] = useState<{ open: boolean; title: string; content: string } | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showAllLanguages, setShowAllLanguages] = useState(false);
+  const [showAllDataEng, setShowAllDataEng] = useState(false);
+  const [showAllMLAI, setShowAllMLAI] = useState(false);
+  const [showAllDevTools, setShowAllDevTools] = useState(false);
 
   // Handle initial hash and browser navigation
   useEffect(() => {
@@ -302,11 +313,12 @@ export default function Home() {
         
         {/* About Tab */}
         {activeTab === "about" && (
-          <div className="bg-black/5 dark:bg-white/5 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-white/10 p-4 sm:p-8">
-            <div className="flex items-center mb-6">
+          <div className="relative">
+            {/* Back to Home Button - Moved to front for better performance */}
+            <div className="mb-6">
               <button 
                 onClick={() => openTab("home")} 
-                className="flex items-center text-gray-600 dark:text-white/60 hover:text-sky-600 dark:hover:text-sky-300 transition-colors mr-4"
+                className="flex items-center text-gray-600 dark:text-white/60 hover:text-sky-600 dark:hover:text-sky-300 transition-all duration-300 hover:scale-105 bg-white/20 dark:bg-black/20 px-4 py-3 rounded-xl backdrop-blur-sm border border-white/20 dark:border-white/10 z-50 relative"
               >
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -314,108 +326,378 @@ export default function Home() {
                 Back to Home
               </button>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-6 sm:mb-8 text-sky-600 dark:text-sky-300">About Me</h2>
+
+            {/* Hero Profile Section */}
+            <div className="bg-gradient-to-br from-black/10 via-sky-500/5 to-purple-500/10 dark:from-white/10 dark:via-sky-400/10 dark:to-purple-400/10 backdrop-blur-xl rounded-3xl border border-gray-200/50 dark:border-white/20 p-8 mb-8 overflow-hidden relative">
+              {/* Floating geometric shapes */}
+              <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-br from-sky-400/20 to-purple-500/20 rounded-full animate-pulse"></div>
+              <div className="absolute -bottom-2 -left-2 w-12 h-12 bg-gradient-to-br from-purple-400/30 to-pink-500/30 rounded-full animate-bounce"></div>
+              <div className="absolute top-1/2 -right-2 w-6 h-6 bg-gradient-to-br from-sky-300/40 to-cyan-400/40 rounded-full animate-ping"></div>
+              
+              <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
+                {/* Avatar with floating ring */}
+                <div className="relative group">
+                  <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-sky-400 via-purple-500 to-pink-500 p-1 animate-spin-slow">
+                    <div className="w-full h-full rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-4xl md:text-5xl font-bold text-sky-600 dark:text-sky-300">
+                      FK
+                    </div>
+                  </div>
+                  {/* Floating ring */}
+                  <div className="absolute -inset-4 border-2 border-sky-400/30 rounded-full animate-pulse"></div>
+                  <div className="absolute -inset-6 border border-purple-400/20 rounded-full animate-ping"></div>
+                </div>
+                
+                {/* Hero Text */}
+                <div className="text-center md:text-left">
+                  <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-sky-600 via-purple-600 to-pink-600 dark:from-sky-300 dark:via-purple-300 dark:to-pink-300 bg-clip-text text-transparent mb-4">
+                    About Me
+                  </h2>
+                  <p className="text-lg md:text-xl text-gray-700 dark:text-white/80 mb-6 max-w-lg">
+                    Building AI systems that matter, one algorithm at a time. 
+                    <span className="bg-gradient-to-r from-sky-600 to-purple-600 dark:from-sky-300 dark:to-purple-300 bg-clip-text text-transparent font-semibold"> Engineer. Creator. Problem Solver.</span>
+                  </p>
+                  
+                  {/* Floating Stats */}
+                  <div className="grid grid-cols-3 gap-4 max-w-md">
+                    <div className="bg-white/20 dark:bg-black/20 backdrop-blur-sm rounded-xl p-3 text-center border border-white/30 dark:border-white/10 hover:scale-105 transition-transform">
+                      <div className="text-2xl font-bold text-sky-600 dark:text-sky-300">5+</div>
+                      <div className="text-xs text-gray-600 dark:text-white/60">Years ML</div>
+                    </div>
+                    <div className="bg-white/20 dark:bg-black/20 backdrop-blur-sm rounded-xl p-3 text-center border border-white/30 dark:border-white/10 hover:scale-105 transition-transform">
+                      <div className="text-2xl font-bold text-purple-600 dark:text-purple-300">20+</div>
+                      <div className="text-xs text-gray-600 dark:text-white/60">Projects</div>
+                    </div>
+                    <div className="bg-white/20 dark:bg-black/20 backdrop-blur-sm rounded-xl p-3 text-center border border-white/30 dark:border-white/10 hover:scale-105 transition-transform">
+                      <div className="text-2xl font-bold text-pink-600 dark:text-pink-300">∞</div>
+                      <div className="text-xs text-gray-600 dark:text-white/60">Ideas</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-black/5 dark:bg-white/5 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-white/10 p-4 sm:p-8">
             
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-xl font-semibold mb-4 text-sky-600 dark:text-sky-300">Who I Am</h3>
-                <p className="text-gray-700 dark:text-white/90 leading-relaxed">
-                  I'm someone who loves taking complex ideas and turning them into things that actually work. 
-                  I sit at the intersection of AI and engineering, building tools that are practical, fast, and actually reliable. 
-                  Whether it's an analytics copilot or an ML workflow that finally solves a pain point, I like creating things that make people say, 
-                  "Wait… this is actually helpful."
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold mb-4 text-sky-600 dark:text-sky-300">What I Do</h3>
-                <p className="text-gray-700 dark:text-white/90 leading-relaxed">
-                  I build agentic AI systems, multimodal ML pipelines, and scalable data setups end-to-end.
-                  A lot of my work blends research ideas with real production needs, starting with quick experiments 
-                  and then turning them into systems that operate consistently and perform effectively. My focus is always the same:
-                  build things that solve real problems and don't fall apart when you need them.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold mb-4 text-sky-600 dark:text-sky-300">Skills</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-600 dark:text-white/80 text-sm">
-                  <div>
-                    <h4 className="font-medium text-gray-800 dark:text-white mb-3">Programming</h4>
-                    <ul className="space-y-1">
-                      <li>• Python, SQL, R</li>
-                      <li>• Java, C, C++</li>
-                      <li>• JavaScript, HTML, CSS</li>
-                    </ul>
+            <div className="space-y-12">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="bg-gradient-to-br from-sky-500/10 to-blue-500/10 rounded-xl p-6 border border-sky-500/20 hover-lift group">
+                  <h3 className="text-xl font-semibold mb-4 text-sky-600 dark:text-sky-300 flex items-center">
+                    <div className="w-8 h-8 bg-gradient-to-r from-sky-500 to-blue-500 rounded-lg flex items-center justify-center mr-3 group-hover:rotate-12 transition-transform">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                    </div>
+                    Who I Am
+                  </h3>
+                  <p className="text-gray-700 dark:text-white/90 leading-relaxed">
+                    I'm someone who loves taking complex ideas and turning them into things that actually work. 
+                    I sit at the intersection of AI and engineering, building tools that are practical, fast, and actually reliable. 
+                    Whether it's an analytics copilot or an ML workflow that finally solves a pain point, I like creating things that make people say: 
+                  </p>
+                  <div className="mt-4 p-4 bg-white/20 dark:bg-black/20 rounded-lg border-l-4 border-sky-500">
+                    <p className="text-lg font-bold bg-gradient-to-r from-sky-600 to-blue-600 dark:from-sky-300 dark:to-blue-300 bg-clip-text text-transparent italic">
+                      "Wait… this is actually helpful."
+                    </p>
                   </div>
+                </div>
 
-                  <div>
-                    <h4 className="font-medium text-gray-800 dark:text-white mb-3">Machine Learning & AI</h4>
-                    <ul className="space-y-1">
-                      <li>• PyTorch, TensorFlow, Scikit-learn, XGBoost</li>
-                      <li>• LLMs (GPT, Gemini, BERT), RAG, LangChain</li>
-                      <li>• Vertex AI, Model deployment, MLOps</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h4 className="font-medium text-gray-800 dark:text-white mb-3">Data Engineering</h4>
-                    <ul className="space-y-1">
-                      <li>• BigQuery, dbt, Airflow</li>
-                      <li>• Pipeline orchestration & ETL</li>
-                      <li>• Docker, CI/CD, monitoring</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h4 className="font-medium text-gray-800 dark:text-white mb-3">Development & Tools</h4>
-                    <ul className="space-y-1">
-                      <li>• React, Flask, FastAPI, Django, Streamlit</li>
-                      <li>• REST APIs, Git/GitHub</li>
-                      <li>• JIRA, Confluence, Power BI</li>
-                    </ul>
+                <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl p-6 border border-purple-500/20 hover-lift group">
+                  <h3 className="text-xl font-semibold mb-4 text-purple-600 dark:text-purple-300 flex items-center">
+                    <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mr-3 group-hover:rotate-12 transition-transform">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                      </svg>
+                    </div>
+                    What I Do
+                  </h3>
+                  <p className="text-gray-700 dark:text-white/90 leading-relaxed">
+                    I build agentic AI systems, multimodal ML pipelines, and scalable data setups end-to-end.
+                    A lot of my work blends research ideas with real production needs, starting with quick experiments 
+                    and then turning them into systems that operate consistently and perform effectively. My focus is always the same:
+                  </p>
+                  <div className="mt-4 p-4 bg-white/20 dark:bg-black/20 rounded-lg border-l-4 border-purple-500">
+                    <p className="text-lg font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-300 dark:to-pink-300 bg-clip-text text-transparent italic">
+                      "Build things that solve real problems and don't fall apart when you need them."
+                    </p>
                   </div>
                 </div>
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold mb-4 text-sky-600 dark:text-sky-300">Interests & Hobbies</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-600 dark:text-white/80">
-                  <div>
-                    <h4 className="font-medium text-gray-800 dark:text-white mb-3">Technical Interests</h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>• Large Language Models & Reasoning</li>
-                      <li>• Computer Vision & Multimodal Systems</li>
-                      <li>• Distributed Systems & MLOps</li>
-                      <li>• Quantitative/Trading Tooling</li>
-                    </ul>
+                <h3 className="text-xl font-semibold mb-6 text-sky-600 dark:text-sky-300 flex items-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-sky-500 to-purple-500 rounded-lg flex items-center justify-center mr-3">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
                   </div>
-                  <div>
-                    <h4 className="font-medium text-gray-800 dark:text-white mb-3">Personal Interests</h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>• Photography & Visual Storytelling</li>
-                      <li>• Market Analysis & Trading</li>
-                      <li>• Open Source Projects</li>
-                      <li>• Community Building & Side Projects</li>
-                    </ul>
+                  Skills & Expertise
+                </h3>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                  <div className="space-y-6">
+                    <div className="bg-gradient-to-r from-sky-500/10 to-purple-500/10 rounded-xl p-6 border border-sky-500/20 flex flex-col min-h-[300px]">
+                      <h4 className="font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
+                        <div className="w-6 h-6 bg-gradient-to-r from-sky-500 to-blue-500 rounded mr-3"></div>
+                        Programming Languages
+                      </h4>
+                      <div className="flex-1 flex flex-col justify-between">
+                        <div className="space-y-3">
+                          {[
+                            { name: 'Python', level: 95, icon: SiPython, color: 'text-yellow-500' },
+                            { name: 'SQL', level: 90, icon: SiMysql, color: 'text-blue-500' },
+                            { name: 'Java', level: 85, icon: FaJava, color: 'text-orange-600' },
+                            { name: 'R', level: 80, icon: SiR, color: 'text-blue-600' },
+                            { name: 'C', level: 75, icon: SiC, color: 'text-blue-700' },
+                            { name: 'C++', level: 75, icon: SiCplusplus, color: 'text-blue-800' },
+                            { name: 'JavaScript', level: 85, icon: SiJavascript, color: 'text-yellow-400' }
+                          ].slice(0, showAllLanguages ? 7 : 5).map((lang) => (
+                            <div key={lang.name} className="flex items-center justify-between">
+                              <div className="flex items-center w-24">
+                                <lang.icon className={`w-4 h-4 mr-2 ${lang.color}`} />
+                                <span className="text-gray-600 dark:text-white/80 text-sm font-medium">{lang.name}</span>
+                              </div>
+                              <div className="flex-1 mx-4 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div 
+                                  className="bg-gradient-to-r from-sky-500 to-blue-500 h-2 rounded-full animate-pulse transition-all duration-1000" 
+                                  style={{width: `${lang.level}%`}}
+                                ></div>
+                              </div>
+                              <span className="text-xs text-gray-500 dark:text-white/60 min-w-[3rem] text-right">{lang.level}%</span>
+                            </div>
+                          ))}
+                        </div>
+                        <button 
+                          onClick={() => setShowAllLanguages(!showAllLanguages)}
+                          className="w-full mt-4 px-4 py-2 bg-white/20 dark:bg-black/20 hover:bg-white/30 dark:hover:bg-black/30 rounded-lg text-sm font-medium text-gray-700 dark:text-white/80 transition-all hover:scale-105 border border-sky-300/30"
+                        >
+                          {showAllLanguages ? 'Show Less' : 'Show More (2 more)'}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-xl p-6 border border-purple-500/20 flex flex-col min-h-[300px]">
+                      <h4 className="font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
+                        <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded mr-3"></div>
+                        Data Engineering
+                      </h4>
+                      <div className="flex-1 flex flex-col justify-between">
+                        <div className="grid grid-cols-3 gap-3">
+                          {[
+                            { name: 'BigQuery', icon: SiGooglecloud, color: 'text-blue-500' },
+                            { name: 'dbt', icon: SiDbt, color: 'text-orange-500' },
+                            { name: 'Airflow', icon: SiApacheairflow, color: 'text-blue-400' },
+                            { name: 'Docker', icon: SiDocker, color: 'text-blue-600' },
+                            { name: 'CI/CD', icon: FaCog, color: 'text-gray-600' },
+                            { name: 'Kubernetes', icon: SiKubernetes, color: 'text-blue-700' },
+                            { name: 'Spark', icon: SiApachespark, color: 'text-orange-600' },
+                            { name: 'Kafka', icon: SiApachekafka, color: 'text-gray-800 dark:text-white' }
+                          ].slice(0, showAllDataEng ? 8 : 6).map((tech) => (
+                            <div key={tech.name} className="flex flex-col items-center space-y-1 px-2 py-3 bg-white/20 dark:bg-black/20 rounded-lg border border-purple-300/30 hover:scale-110 hover:bg-white/30 dark:hover:bg-black/30 transition-all cursor-default text-center">
+                              <tech.icon className={`w-6 h-6 ${tech.color}`} />
+                              <span className="text-xs font-medium">{tech.name}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <button 
+                          onClick={() => setShowAllDataEng(!showAllDataEng)}
+                          className="w-full mt-4 px-4 py-2 bg-white/20 dark:bg-black/20 hover:bg-white/30 dark:hover:bg-black/30 rounded-lg text-sm font-medium text-gray-700 dark:text-white/80 transition-all hover:scale-105 border border-purple-300/30"
+                        >
+                          {showAllDataEng ? 'Show Less' : 'Show More (2 more)'}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="bg-gradient-to-r from-green-500/10 to-teal-500/10 rounded-xl p-6 border border-green-500/20 flex flex-col min-h-[300px]">
+                      <h4 className="font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
+                        <div className="w-6 h-6 bg-gradient-to-r from-green-500 to-teal-500 rounded mr-3"></div>
+                        Machine Learning & AI
+                      </h4>
+                      <div className="flex-1 flex flex-col justify-between">
+                        <div className="grid grid-cols-3 gap-3">
+                          {[
+                            { name: 'TensorFlow', icon: SiTensorflow, color: 'text-orange-500' },
+                            { name: 'PyTorch', icon: SiPytorch, color: 'text-red-600' },
+                            { name: 'Scikit-learn', icon: SiScikitlearn, color: 'text-blue-500' },
+                            { name: 'XGBoost', icon: FaRocket, color: 'text-green-600' },
+                            { name: 'BERT', icon: FaBook, color: 'text-purple-600' },
+                            { name: 'GPT', icon: SiOpenai, color: 'text-green-500' },
+                            { name: 'Gemini', icon: FaGem, color: 'text-blue-400' },
+                            { name: 'Vertex AI', icon: FaCloud, color: 'text-blue-600' },
+                            { name: 'RAG', icon: FaLink, color: 'text-teal-500' },
+                            { name: 'LangChain', icon: SiLangchain, color: 'text-yellow-600' }
+                          ].slice(0, showAllMLAI ? 10 : 6).map((tech) => (
+                            <div key={tech.name} className="flex flex-col items-center space-y-1 px-2 py-3 bg-white/20 dark:bg-black/20 rounded-lg border border-green-300/30 hover:scale-110 hover:bg-white/30 dark:hover:bg-black/30 transition-all cursor-default text-center">
+                              <tech.icon className={`w-6 h-6 ${tech.color}`} />
+                              <span className="text-xs font-medium">{tech.name}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <button 
+                          onClick={() => setShowAllMLAI(!showAllMLAI)}
+                          className="w-full mt-4 px-4 py-2 bg-white/20 dark:bg-black/20 hover:bg-white/30 dark:hover:bg-black/30 rounded-lg text-sm font-medium text-gray-700 dark:text-white/80 transition-all hover:scale-105 border border-green-300/30"
+                        >
+                          {showAllMLAI ? 'Show Less' : 'Show More (4 more)'}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-xl p-6 border border-orange-500/20 flex flex-col min-h-[300px]">
+                      <h4 className="font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
+                        <div className="w-6 h-6 bg-gradient-to-r from-orange-500 to-red-500 rounded mr-3"></div>
+                        Development & Tools
+                      </h4>
+                      <div className="flex-1 flex flex-col justify-between">
+                        <div className="grid grid-cols-3 gap-3">
+                          {[
+                            { name: 'React', icon: SiReact, color: 'text-blue-400' },
+                            { name: 'Flask', icon: SiFlask, color: 'text-gray-700 dark:text-white' },
+                            { name: 'Django', icon: SiDjango, color: 'text-green-700' },
+                            { name: 'Streamlit', icon: SiStreamlit, color: 'text-red-500' },
+                            { name: 'FastAPI', icon: SiFastapi, color: 'text-teal-600' },
+                            { name: 'REST APIs', icon: FaCode, color: 'text-purple-600' },
+                            { name: 'Git', icon: SiGit, color: 'text-orange-600' },
+                            { name: 'GitHub', icon: SiGithub, color: 'text-gray-800 dark:text-white' },
+                            { name: 'JIRA', icon: SiJira, color: 'text-blue-600' },
+                            { name: 'Confluence', icon: FaDatabase, color: 'text-blue-500' },
+                            { name: 'LaTeX', icon: SiLatex, color: 'text-green-600' }
+                          ].slice(0, showAllDevTools ? 11 : 6).map((tech) => (
+                            <div key={tech.name} className="flex flex-col items-center space-y-1 px-2 py-3 bg-white/20 dark:bg-black/20 rounded-lg border border-orange-300/30 hover:scale-110 hover:bg-white/30 dark:hover:bg-black/30 transition-all cursor-default text-center">
+                              <tech.icon className={`w-6 h-6 ${tech.color}`} />
+                              <span className="text-xs font-medium">{tech.name}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <button 
+                          onClick={() => setShowAllDevTools(!showAllDevTools)}
+                          className="w-full mt-4 px-4 py-2 bg-white/20 dark:bg-black/20 hover:bg-white/30 dark:hover:bg-black/30 rounded-lg text-sm font-medium text-gray-700 dark:text-white/80 transition-all hover:scale-105 border border-orange-300/30"
+                        >
+                          {showAllDevTools ? 'Show Less' : 'Show More (5 more)'}
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold mb-4 text-sky-600 dark:text-sky-300">Philosophy</h3>
-                <p className="text-gray-700 dark:text-white/90 leading-relaxed">
-                  I like building technology that helps people think clearly, move faster, and do more — rather than replace them.
-                  Good AI should feel like a teammate, not a black box. If an idea feels intuitive and helps someone be more efficient, 
-                  that's the kind of system I want to build.
-                </p>
+                <h3 className="text-xl font-semibold mb-6 text-sky-600 dark:text-sky-300 flex items-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-pink-500 to-orange-500 rounded-lg flex items-center justify-center mr-3 animate-bounce-gentle">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  </div>
+                  Interests & Passions
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {[
+                    {
+                      title: "Technical Interests",
+                      icon: "🔬",
+                      gradient: "from-blue-500/20 to-cyan-500/20",
+                      borderColor: "border-blue-500/30",
+                      items: [
+                        { text: "Large Language Models & Reasoning", emoji: "🧠", desc: "Exploring the frontiers of AI cognition" },
+                        { text: "Computer Vision & Multimodal Systems", emoji: "👁️", desc: "Making machines see and understand" },
+                        { text: "Distributed Systems & MLOps", emoji: "⚙️", desc: "Scaling AI systems reliably" },
+                        { text: "Quantitative/Trading Tooling", emoji: "📊", desc: "Building data-driven financial tools" }
+                      ]
+                    },
+                    {
+                      title: "Personal Interests", 
+                      icon: "🎨",
+                      gradient: "from-purple-500/20 to-pink-500/20",
+                      borderColor: "border-purple-500/30",
+                      items: [
+                        { text: "Photography & Visual Storytelling", emoji: "📸", desc: "Capturing moments and emotions" },
+                        { text: "Market Analysis & Trading", emoji: "📈", desc: "Understanding financial patterns" },
+                        { text: "Open Source Projects", emoji: "🌐", desc: "Contributing to the community" },
+                        { text: "Community Building & Side Projects", emoji: "🤝", desc: "Connecting people through tech" }
+                      ]
+                    }
+                  ].map((section, index) => (
+                    <div key={section.title} className={`bg-gradient-to-br ${section.gradient} rounded-xl p-6 border ${section.borderColor} hover-lift hover:scale-105 transition-all duration-300 group`}>
+                      <h4 className="font-semibold text-gray-800 dark:text-white mb-6 flex items-center">
+                        <span className="text-2xl mr-3 group-hover:scale-125 transition-transform">{section.icon}</span>
+                        {section.title}
+                      </h4>
+                      <div className="space-y-4">
+                        {section.items.map((item, itemIndex) => (
+                          <div key={item.text} className="group/item bg-white/10 dark:bg-black/10 rounded-lg p-4 hover:bg-white/20 dark:hover:bg-black/20 transition-all duration-300 hover:scale-[1.02] cursor-pointer" style={{transitionDelay: `${itemIndex * 50}ms`}}>
+                            <div className="flex items-start space-x-3">
+                              <span className="text-xl group-hover/item:scale-110 transition-transform">{item.emoji}</span>
+                              <div className="flex-1">
+                                <div className="font-medium text-gray-800 dark:text-white text-sm mb-1 group-hover/item:text-sky-600 dark:group-hover/item:text-sky-300 transition-colors">
+                                  {item.text}
+                                </div>
+                                <div className="text-xs text-gray-500 dark:text-white/60 opacity-0 group-hover/item:opacity-100 transition-opacity">
+                                  {item.desc}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              <div className="pt-6 border-t border-gray-200 dark:border-white/10">
-                <p className="text-gray-500 dark:text-white/60 text-sm">
-                  You can explore my projects, try the demos, or check out my photography if you want to see more of what I do.
-                </p>
+              <div>
+                <h3 className="text-xl font-semibold mb-6 text-sky-600 dark:text-sky-300 flex items-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center mr-3 animate-glow">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                  </div>
+                  Philosophy
+                </h3>
+                <div className="relative bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 rounded-2xl p-8 border border-indigo-500/20 overflow-hidden group hover:scale-[1.02] transition-all duration-500">
+                  {/* Background pattern */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 transform translate-x-full group-hover:translate-x-[-200%] transition-transform duration-1000"></div>
+                  
+                  {/* Content */}
+                  <div className="relative z-10 text-center">
+                    <div className="text-4xl mb-4 opacity-20 dark:opacity-30">💭</div>
+                    <blockquote className="text-lg text-gray-700 dark:text-white/90 leading-relaxed italic relative">
+                      <div className="absolute -left-4 -top-2 text-6xl text-indigo-500/30 font-serif">"</div>
+                      I like building technology that helps people think clearly, move faster, and do more — rather than replace them.
+                      Good AI should feel like a teammate, not a black box. If an idea feels intuitive and helps someone be more efficient, 
+                      that's the kind of system I want to build.
+                      <div className="absolute -bottom-4 right-0 text-6xl text-indigo-500/30 font-serif transform rotate-180">"</div>
+                    </blockquote>
+                    <div className="mt-6 flex items-center justify-center">
+                      <div className="w-12 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
+                      <span className="mx-4 text-sm text-gray-500 dark:text-white/60 font-medium">Building AI that empowers, not replaces</span>
+                      <div className="w-12 h-0.5 bg-gradient-to-l from-indigo-500 to-purple-500"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
+
+              <div className="pt-8 border-t border-gradient-to-r from-transparent via-gray-300 dark:via-white/20 to-transparent relative">
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sky-500/50 to-transparent"></div>
+                <div className="flex flex-col md:flex-row items-center justify-between">
+                  <div className="flex items-center space-x-4 mb-4 md:mb-0">
+                    <div className="w-10 h-10 bg-gradient-to-r from-sky-500 to-purple-500 rounded-full flex items-center justify-center">
+                      <span className="text-white font-bold text-sm">FK</span>
+                    </div>
+                    <div>
+                      <p className="text-gray-700 dark:text-white/80 font-medium">Ready to collaborate?</p>
+                      <p className="text-gray-500 dark:text-white/60 text-sm">Explore my projects, try the demos, or check out my photography.</p>
+                    </div>
+                  </div>
+                  <div className="flex space-x-3">
+                    <button onClick={() => openTab("projects")} className="px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-lg text-sm font-medium transition-all hover:scale-105 shadow-lg">
+                      View Projects
+                    </button>
+                    <button onClick={() => openTab("contact")} className="px-4 py-2 bg-white/10 dark:bg-black/20 hover:bg-white/20 dark:hover:bg-black/30 text-gray-700 dark:text-white rounded-lg text-sm font-medium transition-all hover:scale-105 border border-gray-200 dark:border-white/10">
+                      Get in Touch
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
             </div>
           </div>
         )}
