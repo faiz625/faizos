@@ -4,14 +4,63 @@
 
 /* smooth fonts & selection */
 * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-::selection { background: rgba(168, 85, 247, .25); }
+
+/* Theme-aware selection colors */
+::selection { 
+  background: rgba(168, 85, 247, .25); 
+}
+.dark ::selection { 
+  background: rgba(168, 85, 247, .25); 
+}
+.light ::selection { 
+  background: rgba(14, 165, 233, .25); 
+}
 
 /* OS-style cursor and nice grid */
 html, body, #__next { height: 100%; }
 html, body { overflow-x: hidden; }
+
+/* Dark theme styles (default) */
 body {
-  @apply bg-black text-white;
+  background-color: #000000;
+  color: #ffffff;
   background-image: radial-gradient(transparent 1px, rgba(255,255,255,.02) 1px), radial-gradient(transparent 1px, rgba(255,255,255,.02) 1px);
   background-size: 24px 24px, 24px 24px;
   background-position: 0 0, 12px 12px;
+}
+
+/* Light theme styles */
+.light body {
+  background-color: rgb(249 250 251);
+  color: rgb(17 24 39);
+  background-image: radial-gradient(transparent 1px, rgba(0,0,0,.02) 1px), radial-gradient(transparent 1px, rgba(0,0,0,.02) 1px);
+  background-size: 24px 24px, 24px 24px;
+  background-position: 0 0, 12px 12px;
+}
+
+/* CSS Custom Properties for theme-aware styling */
+:root {
+  /* Light theme colors */
+  --bg-primary: rgb(249 250 251);
+  --bg-secondary: rgba(0, 0, 0, 0.05);
+  --bg-tertiary: rgba(0, 0, 0, 0.1);
+  --text-primary: rgb(17 24 39);
+  --text-secondary: rgba(17, 24, 39, 0.7);
+  --text-tertiary: rgba(17, 24, 39, 0.6);
+  --border-primary: rgba(0, 0, 0, 0.1);
+  --accent-color: rgb(14 165 233);
+  --accent-hover: rgb(2 132 199);
+}
+
+.dark {
+  /* Dark theme colors */
+  --bg-primary: rgb(0 0 0);
+  --bg-secondary: rgba(255, 255, 255, 0.05);
+  --bg-tertiary: rgba(255, 255, 255, 0.1);
+  --text-primary: rgb(255 255 255);
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-tertiary: rgba(255, 255, 255, 0.6);
+  --border-primary: rgba(255, 255, 255, 0.1);
+  --accent-color: rgb(125 211 252);
+  --accent-hover: rgb(56 189 248);
 }
