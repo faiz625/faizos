@@ -203,14 +203,14 @@ export default function Home() {
 
           {/* Mobile Menu Dropdown */}
           {mobileMenuOpen && (
-            <div className="lg:hidden bg-black/30 dark:bg-black/30 bg-white/30 backdrop-blur-xl border-t border-white/10 dark:border-white/10 border-gray-200">
+            <div className="lg:hidden bg-white/30 dark:bg-black/30 backdrop-blur-xl border-t border-gray-200 dark:border-white/10">
               <div className="px-4 py-4 space-y-2">
                 <button 
                   onClick={() => openTab("about")} 
                   className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                     activeTab === "about" 
                       ? "bg-sky-600 text-white" 
-                      : "hover:bg-white/10 dark:hover:bg-white/10 hover:bg-black/10 text-white/80 dark:text-white/80 text-gray-700"
+                      : "hover:bg-black/10 dark:hover:bg-white/10 text-gray-700 dark:text-white/80"
                   }`}
                 >
                   About
@@ -220,7 +220,7 @@ export default function Home() {
                   className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                     activeTab === "projects" 
                       ? "bg-sky-600 text-white" 
-                      : "hover:bg-white/10 dark:hover:bg-white/10 hover:bg-black/10 text-white/80 dark:text-white/80 text-gray-700"
+                      : "hover:bg-black/10 dark:hover:bg-white/10 text-gray-700 dark:text-white/80"
                   }`}
                 >
                   Projects
@@ -230,7 +230,7 @@ export default function Home() {
                   className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                     activeTab === "demos" 
                       ? "bg-sky-600 text-white" 
-                      : "hover:bg-white/10 dark:hover:bg-white/10 hover:bg-black/10 text-white/80 dark:text-white/80 text-gray-700"
+                      : "hover:bg-black/10 dark:hover:bg-white/10 text-gray-700 dark:text-white/80"
                   }`}
                 >
                   AI Demos
@@ -240,7 +240,7 @@ export default function Home() {
                   className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                     activeTab === "trading" 
                       ? "bg-sky-600 text-white" 
-                      : "hover:bg-white/10 dark:hover:bg-white/10 hover:bg-black/10 text-white/80 dark:text-white/80 text-gray-700"
+                      : "hover:bg-black/10 dark:hover:bg-white/10 text-gray-700 dark:text-white/80"
                   }`}
                 >
                   Trading
@@ -250,7 +250,7 @@ export default function Home() {
                   className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                     activeTab === "photography" 
                       ? "bg-sky-600 text-white" 
-                      : "hover:bg-white/10 dark:hover:bg-white/10 hover:bg-black/10 text-white/80 dark:text-white/80 text-gray-700"
+                      : "hover:bg-black/10 dark:hover:bg-white/10 text-gray-700 dark:text-white/80"
                   }`}
                 >
                   Photography
@@ -260,19 +260,19 @@ export default function Home() {
                   className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                     activeTab === "contact" 
                       ? "bg-sky-600 text-white" 
-                      : "hover:bg-white/10 dark:hover:bg-white/10 hover:bg-black/10 text-white/80 dark:text-white/80 text-gray-700"
+                      : "hover:bg-black/10 dark:hover:bg-white/10 text-gray-700 dark:text-white/80"
                   }`}
                 >
                   Contact
                 </button>
                 
                 {/* Social Links - Mobile */}
-                <div className="flex justify-center items-center pt-4 space-x-4 border-t border-white/20 dark:border-white/20 border-gray-300 mt-4">
+                <div className="flex justify-center items-center pt-4 space-x-4 border-t border-gray-300 dark:border-white/20 mt-4">
                   <a 
                     href="https://github.com/faiz625" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg hover:bg-white/10 dark:hover:bg-white/10 hover:bg-black/10 text-white/70 dark:text-white/70 text-gray-600 hover:text-white dark:hover:text-white hover:text-black transition-colors"
+                    className="p-2 rounded-lg hover:bg-black/10 dark:hover:bg-white/10 text-gray-600 dark:text-white/70 hover:text-gray-900 dark:hover:text-white transition-colors"
                     title="GitHub"
                   >
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -283,7 +283,7 @@ export default function Home() {
                     href="https://www.linkedin.com/in/faizkapadia/" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg hover:bg-white/10 dark:hover:bg-white/10 hover:bg-black/10 text-white/70 dark:text-white/70 text-gray-600 hover:text-white dark:hover:text-white hover:text-black transition-colors"
+                    className="p-2 rounded-lg hover:bg-black/10 dark:hover:bg-white/10 text-gray-600 dark:text-white/70 hover:text-gray-900 dark:hover:text-white transition-colors"
                     title="LinkedIn"
                   >
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -302,7 +302,7 @@ export default function Home() {
         
         {/* About Tab */}
         {activeTab === "about" && (
-          <div className="bg-white/5 dark:bg-white/5 bg-black/5 backdrop-blur-xl rounded-2xl border border-white/10 dark:border-white/10 border-gray-200 p-4 sm:p-8">
+          <div className="bg-black/5 dark:bg-white/5 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-white/10 p-4 sm:p-8">
             <div className="flex items-center mb-6">
               <button 
                 onClick={() => openTab("home")} 
@@ -684,39 +684,39 @@ export default function Home() {
               </div>
             </div>
             
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-4 sm:p-8 max-w-4xl mx-auto">
+            <div className="bg-black/5 dark:bg-white/5 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-white/10 p-4 sm:p-8 max-w-4xl mx-auto">
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6">
-                <button onClick={() => openTab("about")} className="group p-4 sm:p-6 bg-white/10 dark:bg-white/10 bg-black/10 rounded-xl hover:bg-white/15 dark:hover:bg-white/15 hover:bg-black/15 transition-all border border-white/10 dark:border-white/10 border-gray-300 hover:border-sky-300/30">
+                <button onClick={() => openTab("about")} className="group p-4 sm:p-6 bg-black/10 dark:bg-white/10 rounded-xl hover:bg-black/15 dark:hover:bg-white/15 transition-all border border-gray-300 dark:border-white/10 hover:border-sky-300/30">
                   <div className="text-sky-600 dark:text-sky-300 mb-2 sm:mb-3 group-hover:scale-110 transition-transform text-xl sm:text-2xl">👋</div>
                   <div className="font-medium mb-1 text-sm sm:text-base text-gray-900 dark:text-white">About Me</div>
                   <div className="text-xs sm:text-sm text-gray-500 dark:text-white/60">Who I am & what I do</div>
                 </button>
                 
-                <button onClick={() => openTab("projects")} className="group p-4 sm:p-6 bg-white/10 dark:bg-white/10 bg-black/10 rounded-xl hover:bg-white/15 dark:hover:bg-white/15 hover:bg-black/15 transition-all border border-white/10 dark:border-white/10 border-gray-300 hover:border-sky-300/30">
+                <button onClick={() => openTab("projects")} className="group p-4 sm:p-6 bg-black/10 dark:bg-white/10 rounded-xl hover:bg-black/15 dark:hover:bg-white/15 transition-all border border-gray-300 dark:border-white/10 hover:border-sky-300/30">
                   <div className="text-sky-600 dark:text-sky-300 mb-2 sm:mb-3 group-hover:scale-110 transition-transform text-xl sm:text-2xl">💼</div>
                   <div className="font-medium mb-1 text-sm sm:text-base text-gray-900 dark:text-white">Projects</div>
                   <div className="text-xs sm:text-sm text-gray-500 dark:text-white/60">Selected work & demos</div>
                 </button>
                 
-                <button onClick={() => openTab("demos")} className="group p-4 sm:p-6 bg-white/10 dark:bg-white/10 bg-black/10 rounded-xl hover:bg-white/15 dark:hover:bg-white/15 hover:bg-black/15 transition-all border border-white/10 dark:border-white/10 border-gray-300 hover:border-sky-300/30">
+                <button onClick={() => openTab("demos")} className="group p-4 sm:p-6 bg-black/10 dark:bg-white/10 rounded-xl hover:bg-black/15 dark:hover:bg-white/15 transition-all border border-gray-300 dark:border-white/10 hover:border-sky-300/30">
                   <div className="text-sky-600 dark:text-sky-300 mb-2 sm:mb-3 group-hover:scale-110 transition-transform text-xl sm:text-2xl">🤖</div>
                   <div className="font-medium mb-1 text-sm sm:text-base text-gray-900 dark:text-white">AI Demos</div>
                   <div className="text-xs sm:text-sm text-gray-500 dark:text-white/60">Interactive experiences</div>
                 </button>
                 
-                <button onClick={() => openTab("trading")} className="group p-4 sm:p-6 bg-white/10 dark:bg-white/10 bg-black/10 rounded-xl hover:bg-white/15 dark:hover:bg-white/15 hover:bg-black/15 transition-all border border-white/10 dark:border-white/10 border-gray-300 hover:border-sky-300/30">
+                <button onClick={() => openTab("trading")} className="group p-4 sm:p-6 bg-black/10 dark:bg-white/10 rounded-xl hover:bg-black/15 dark:hover:bg-white/15 transition-all border border-gray-300 dark:border-white/10 hover:border-sky-300/30">
                   <div className="text-sky-600 dark:text-sky-300 mb-2 sm:mb-3 group-hover:scale-110 transition-transform text-xl sm:text-2xl">📈</div>
                   <div className="font-medium mb-1 text-sm sm:text-base text-gray-900 dark:text-white">Trading</div>
                   <div className="text-xs sm:text-sm text-gray-500 dark:text-white/60">Live market dashboard</div>
                 </button>
                 
-                <button onClick={() => openTab("photography")} className="group p-4 sm:p-6 bg-white/10 dark:bg-white/10 bg-black/10 rounded-xl hover:bg-white/15 dark:hover:bg-white/15 hover:bg-black/15 transition-all border border-white/10 dark:border-white/10 border-gray-300 hover:border-sky-300/30">
+                <button onClick={() => openTab("photography")} className="group p-4 sm:p-6 bg-black/10 dark:bg-white/10 rounded-xl hover:bg-black/15 dark:hover:bg-white/15 transition-all border border-gray-300 dark:border-white/10 hover:border-sky-300/30">
                   <div className="text-sky-600 dark:text-sky-300 mb-2 sm:mb-3 group-hover:scale-110 transition-transform text-xl sm:text-2xl">📸</div>
                   <div className="font-medium mb-1 text-sm sm:text-base text-gray-900 dark:text-white">Photography</div>
                   <div className="text-xs sm:text-sm text-gray-500 dark:text-white/60">Visual stories & moments</div>
                 </button>
                 
-                <button onClick={() => openTab("contact")} className="group p-4 sm:p-6 bg-white/10 dark:bg-white/10 bg-black/10 rounded-xl hover:bg-white/15 dark:hover:bg-white/15 hover:bg-black/15 transition-all border border-white/10 dark:border-white/10 border-gray-300 hover:border-sky-300/30">
+                <button onClick={() => openTab("contact")} className="group p-4 sm:p-6 bg-black/10 dark:bg-white/10 rounded-xl hover:bg-black/15 dark:hover:bg-white/15 transition-all border border-gray-300 dark:border-white/10 hover:border-sky-300/30">
                   <div className="text-sky-600 dark:text-sky-300 mb-2 sm:mb-3 group-hover:scale-110 transition-transform text-xl sm:text-2xl">✉️</div>
                   <div className="font-medium mb-1 text-sm sm:text-base text-gray-900 dark:text-white">Contact</div>
                   <div className="text-xs sm:text-sm text-gray-500 dark:text-white/60">Get in touch</div>
