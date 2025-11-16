@@ -85,6 +85,7 @@ html, body { overflow-x: hidden; }
   }
 }
 
+/* Mobile-friendly animation classes */
 .animate-float { animation: float 3s ease-in-out infinite; }
 .animate-spin-slow { animation: spin-slow 8s linear infinite; }
 .animate-glow { animation: glow 2s ease-in-out infinite alternate; }
@@ -97,6 +98,50 @@ html, body { overflow-x: hidden; }
 .animate-slide-up { animation: slide-up 0.6s ease-out forwards; }
 .animate-slide-in-right { animation: slide-in-right 0.5s ease-out forwards; }
 .animate-fade-in-scale { animation: fade-in-scale 0.5s ease-out forwards; }
+
+/* Enhanced mobile performance and accessibility */
+@media (max-width: 640px) {
+  /* Simplify animations on mobile for better performance */
+  .animate-spin-slow { 
+    animation-duration: 12s; /* Slower rotation on mobile */
+  }
+  .animate-glow { 
+    animation: none; /* Disable glow on mobile for performance */
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+  }
+  .animate-bounce-gentle { 
+    animation-duration: 3s; /* Slower bounce on mobile */
+  }
+  .animate-scale-pulse { 
+    animation: none; /* Disable scale pulse on mobile for performance */
+  }
+  
+  /* Reduce hover effects on mobile */
+  .hover\:scale-105:hover,
+  .hover\:scale-110:hover,
+  .hover\:scale-125:hover {
+    transform: scale(1.02); /* Minimal scale on mobile */
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .animate-float,
+  .animate-spin-slow,
+  .animate-glow,
+  .animate-bounce-gentle,
+  .animate-scale-pulse {
+    animation: none !important;
+  }
+}
 
 /* Line clamp utility */
 .line-clamp-3 {

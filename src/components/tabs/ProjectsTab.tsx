@@ -180,7 +180,7 @@ interface ProjectCardProps {
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isHovered, onHover, onClick }) => {
   return (
     <div
-      className={`group relative bg-gradient-to-br ${project.gradient} rounded-2xl p-6 border ${project.borderColor} hover:scale-[1.02] transition-all duration-500 cursor-pointer overflow-hidden`}
+      className={`group relative bg-gradient-to-br ${project.gradient} rounded-2xl p-4 sm:p-6 border ${project.borderColor} hover:scale-[1.02] transition-all duration-500 cursor-pointer overflow-hidden`}
       style={{ animationDelay: `${index * 150}ms` }}
       onMouseEnter={() => onHover(project.title)}
       onMouseLeave={() => onHover(null)}
@@ -190,23 +190,23 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isHovered, on
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 transform translate-x-full group-hover:translate-x-[-200%] transition-transform duration-1000"></div>
       
       {/* Status Badge */}
-      <div className="absolute top-4 right-4 z-10">
+      <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10">
         <StatusBadge status={project.status} />
       </div>
 
       {/* Content */}
       <div className="relative z-10">
         {/* Icon and Title */}
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 bg-white/20 dark:bg-black/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+        <div className="flex items-start justify-between mb-4 pr-16 sm:pr-20">
+          <div className="flex items-center space-x-3 sm:space-x-4 min-w-0">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 dark:bg-black/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
               {project.icon}
             </div>
-            <div>
-              <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-1 group-hover:text-sky-600 dark:group-hover:text-sky-300 transition-colors">
+            <div className="min-w-0 flex-1">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-white mb-1 group-hover:text-sky-600 dark:group-hover:text-sky-300 transition-colors line-clamp-2">
                 {project.title}
               </h3>
-              <div className="text-sm text-gray-500 dark:text-white/60">{project.year} • {project.category}</div>
+              <div className="text-xs sm:text-sm text-gray-500 dark:text-white/60">{project.year} • {project.category}</div>
             </div>
           </div>
         </div>
@@ -217,11 +217,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isHovered, on
         </p>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-6">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1 bg-white/20 dark:bg-black/20 rounded-full text-xs font-medium text-gray-700 dark:text-white/80 hover:bg-white/30 dark:hover:bg-black/30 transition-colors"
+              className="px-2 py-1 sm:px-3 sm:py-1 bg-white/20 dark:bg-black/20 rounded-full text-xs font-medium text-gray-700 dark:text-white/80 hover:bg-white/30 dark:hover:bg-black/30 transition-colors whitespace-nowrap"
             >
               {tag}
             </span>
@@ -230,21 +230,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isHovered, on
 
         {/* Action Button */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center text-sm text-gray-600 dark:text-white/60">
+          <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-white/60 min-w-0 flex-1 mr-2">
             {project.url ? (
               <span className="flex items-center">
-                <LinkIcon className="w-4 h-4 mr-1" />
-                View Repository
+                <LinkIcon className="w-3 h-3 sm:w-4 sm:h-4 mr-1 flex-shrink-0" />
+                <span className="truncate">View Repository</span>
               </span>
             ) : (
               <span className="flex items-center">
-                <DocumentIcon className="w-4 h-4 mr-1" />
-                View Architecture
+                <DocumentIcon className="w-3 h-3 sm:w-4 sm:h-4 mr-1 flex-shrink-0" />
+                <span className="truncate">View Architecture</span>
               </span>
             )}
           </div>
-          <div className="w-8 h-8 bg-sky-500/20 rounded-lg flex items-center justify-center group-hover:bg-sky-500 group-hover:text-white transition-all">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-7 h-7 sm:w-8 sm:h-8 bg-sky-500/20 rounded-lg flex items-center justify-center group-hover:bg-sky-500 group-hover:text-white transition-all flex-shrink-0">
+            <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </div>
@@ -262,9 +262,9 @@ const StatusBadge: React.FC<{ status: "live" | "demo" | "archived" }> = ({ statu
   };
 
   return (
-    <div className={`flex items-center space-x-2 px-3 py-1 ${config[status].color} rounded-full text-white text-xs font-medium ${config[status].pulse}`}>
-      <div className="w-2 h-2 bg-white rounded-full"></div>
-      <span>{config[status].text}</span>
+    <div className={`flex items-center space-x-1.5 sm:space-x-2 px-2 py-1 sm:px-3 sm:py-1 ${config[status].color} rounded-full text-white text-xs sm:text-xs font-medium ${config[status].pulse} backdrop-blur-sm`}>
+      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full flex-shrink-0"></div>
+      <span className="whitespace-nowrap">{config[status].text}</span>
     </div>
   );
 };

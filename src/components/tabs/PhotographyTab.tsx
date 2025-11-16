@@ -12,7 +12,8 @@ interface Photo {
   title: string;
   location: string;
   date: string;
-  category: "portrait" | "landscape" | "street" | "nature";
+  category: "city" | "sunset" | "other";
+  categories?: ("city" | "sunset" | "other")[]; // Multiple categories support
   camera?: string;
   lens?: string;
   settings?: string;
@@ -26,72 +27,186 @@ export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab }) => {
   const [viewMode, setViewMode] = useState<"grid" | "masonry">("masonry");
 
   const photos: Photo[] = [
+    // City photos
     {
       id: "1",
-      src: "/photography/IMG_8749.jpeg",
-      alt: "Golden hour portrait",
-      title: "Golden Moments",
-      location: "San Francisco, CA",
-      date: "October 2024",
-      category: "portrait",
+      src: "/photography/city.jpeg",
+      alt: "Dubai cityscape",
+      title: "",
+      location: "Dubai, UAE",
+      date: "November 2024",
+      category: "city",
       camera: "Nikon D5300",
       lens: "AF-S DX NIKKOR 35mm f/1.8G",
-      settings: "f/2.8 • 1/250s • ISO 200",
-      description: "Captured during the magical golden hour, this portrait showcases natural lighting at its finest.",
+      settings: "f/1.8 • 1/500s • ISO 400",
+      description: "The stunning modern skyline of Dubai showcasing architectural marvels in the desert.",
       featured: true
     },
     {
       id: "2",
-      src: "/photography/IMG_8751.jpeg",
-      alt: "Street photography",
-      title: "Life in Motion",
-      location: "Mission District, SF",
-      date: "August 2024",
-      category: "street",
+      src: "/photography/city1.jpeg",
+      alt: "Toronto downtown",
+      title: "",
+      location: "Downtown Toronto, ON",
+      date: "November 2024",
+      category: "city",
       camera: "Nikon D5300",
-      lens: "AF-S DX NIKKOR 35mm f/1.8G",
-      settings: "f/1.8 • 1/500s • ISO 400",
-      description: "Candid moments that tell the story of urban life and human connection."
+      lens: "AF-S DX NIKKOR 18-140mm f/3.5-5.6G VR",
+      settings: "f/8 • 1/125s • ISO 200",
+      description: "The vibrant heart of Canada's largest city with its iconic urban landscape."
     },
     {
       id: "3",
-      src: "/photography/IMG_8752.jpeg",
-      alt: "Natural landscape",
-      title: "Nature's Canvas",
-      location: "Marin County, CA",
-      date: "July 2024",
-      category: "landscape",
+      src: "/photography/city2.jpeg",
+      alt: "Scarborough cityscape",
+      title: "",
+      location: "Scarborough, ON",
+      date: "November 2024",
+      category: "city",
+      camera: "Nikon D5300",
+      lens: "AF-S DX NIKKOR 35mm f/1.8G",
+      settings: "f/2.0 • 1/400s • ISO 320",
+      description: "Capturing the diverse urban character of Scarborough's bustling neighborhoods."
+    },
+    // City + Sunset combination photos
+    {
+      id: "4",
+      src: "/photography/city_sunset.jpeg",
+      alt: "Toronto sunset skyline",
+      title: "",
+      location: "Downtown Toronto, ON",
+      date: "November 2024",
+      category: "city",
+      categories: ["city", "sunset"],
       camera: "Nikon D5300",
       lens: "AF-S DX NIKKOR 18-140mm f/3.5-5.6G VR",
       settings: "f/11 • 1/60s • ISO 100",
-      description: "The serene beauty of Northern California's diverse landscapes."
+      description: "Toronto's magnificent skyline bathed in the warm glow of golden hour light.",
+      featured: true
     },
     {
-      id: "4",
-      src: "/photography/IMG_8755.jpeg",
-      alt: "Intimate portrait",
-      title: "Silent Stories",
-      location: "Berkeley, CA",
-      date: "June 2024",
-      category: "portrait",
+      id: "5",
+      src: "/photography/city_sunset1.jpeg",
+      alt: "Scarborough sunset",
+      title: "",
+      location: "Scarborough, ON",
+      date: "November 2024",
+      category: "sunset",
+      categories: ["city", "sunset"],
+      camera: "Nikon D5300",
+      lens: "AF-S DX NIKKOR 18-140mm f/3.5-5.6G VR",
+      settings: "f/8 • 1/250s • ISO 200",
+      description: "The peaceful evening atmosphere as sunset paints the Scarborough skyline."
+    },
+    // Sunset photos
+    {
+      id: "6",
+      src: "/photography/sunset.jpeg",
+      alt: "Jamaica beach sunset",
+      title: "",
+      location: "Montego Bay, Jamaica",
+      date: "November 2024",
+      category: "sunset",
+      camera: "Nikon D5300",
+      lens: "AF-S DX NIKKOR 18-140mm f/3.5-5.6G VR",
+      settings: "f/11 • 1/60s • ISO 100",
+      description: "Tropical paradise as the sun sets over the crystal clear waters of Montego Bay.",
+      featured: true
+    },
+    {
+      id: "7",
+      src: "/photography/sunset1.jpeg",
+      alt: "Dominican Republic sunset",
+      title: "",
+      location: "Dominican Republic",
+      date: "November 2024",
+      category: "sunset",
+      camera: "Nikon D5300",
+      lens: "AF-S DX NIKKOR 18-140mm f/3.5-5.6G VR",
+      settings: "f/8 • 1/125s • ISO 200",
+      description: "The serene beauty of a Caribbean sunset painting the Dominican sky in vibrant colors."
+    },
+    {
+      id: "8",
+      src: "/photography/sunset2.jpeg",
+      alt: "Scarborough sunset",
+      title: "",
+      location: "Scarborough, ON",
+      date: "November 2024",
+      category: "sunset",
+      camera: "Nikon D5300",
+      lens: "AF-S DX NIKKOR 18-140mm f/3.5-5.6G VR",
+      settings: "f/11 • 1/30s • ISO 100",
+      description: "The gentle evening light over Scarborough's landscape as day transitions to night."
+    },
+    // Other category photos
+    {
+      id: "9",
+      src: "/photography/other.jpeg",
+      alt: "Markham photography",
+      title: "",
+      location: "Markham, ON",
+      date: "November 2024",
+      category: "other",
+      camera: "Nikon D5300",
+      lens: "AF-S DX NIKKOR 35mm f/1.8G",
+      settings: "f/2.8 • 1/200s • ISO 250",
+      description: "Capturing the quiet charm and character of Markham's suburban landscape."
+    },
+    {
+      id: "10",
+      src: "/photography/other1.jpeg",
+      alt: "Medina photography",
+      title: "",
+      location: "Medina, Saudi Arabia",
+      date: "November 2024",
+      category: "other",
+      camera: "Nikon D5300",
+      lens: "AF-S DX NIKKOR 35mm f/1.8G",
+      settings: "f/4 • 1/320s • ISO 400",
+      description: "The spiritual essence and architectural beauty of the holy city of Medina."
+    },
+    {
+      id: "11",
+      src: "/photography/other2.jpeg",
+      alt: "Dominican Republic landscape",
+      title: "",
+      location: "Dominican Republic",
+      date: "November 2024",
+      category: "other",
       camera: "Nikon D5300",
       lens: "AF-S DX NIKKOR 35mm f/1.8G",
       settings: "f/2.5 • 1/200s • ISO 320",
-      description: "Every face tells a story - this portrait captures a moment of quiet contemplation."
+      description: "The vibrant culture and natural beauty of the Dominican Republic's diverse landscape."
+    },
+    {
+      id: "12",
+      src: "/photography/other3.jpeg",
+      alt: "Orlando photography",
+      title: "",
+      location: "Orlando, FL",
+      date: "November 2024",
+      category: "other",
+      camera: "Nikon D5300",
+      lens: "AF-S DX NIKKOR 35mm f/1.8G",
+      settings: "f/2.2 • 1/160s • ISO 320",
+      description: "The magic and energy of Orlando captured through creative composition and lighting."
     },
   ];
 
   const categories = [
     { key: "all", label: "All Photos", icon: "🎨" },
-    { key: "portrait", label: "Portraits", icon: "👤" },
-    { key: "landscape", label: "Landscapes", icon: "🏔️" },
-    { key: "street", label: "Street", icon: "🏙️" },
-    { key: "nature", label: "Nature", icon: "🌿" }
+    { key: "city", label: "City", icon: "🏙️" },
+    { key: "sunset", label: "Sunsets", icon: "�" },
+    { key: "other", label: "Other", icon: "📸" }
   ];
 
   const filteredPhotos = selectedCategory === "all" 
     ? photos 
-    : photos.filter(p => p.category === selectedCategory);
+    : photos.filter(p => 
+        p.category === selectedCategory || 
+        (p.categories && p.categories.includes(selectedCategory as "city" | "sunset" | "other"))
+      );
 
   const featuredPhotos = photos.filter(p => p.featured);
 
