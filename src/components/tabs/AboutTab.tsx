@@ -265,24 +265,41 @@ const LanguagesSkillCard: React.FC<SkillCardProps> = ({ showAll, setShowAll }) =
         </h4>
         <div className="flex-1 flex flex-col justify-between">
           <div className="space-y-2 sm:space-y-3">
-            {languages.slice(0, showAll ? 7 : 5).map((lang, index) => (
-              <div key={lang.name} className="flex items-center justify-between group/lang hover:scale-105 transition-all duration-300 animate-slide-up" style={{animationDelay: `${0.3 + index * 0.1}s`}}>
-                <div className="flex items-center w-20 sm:w-24">
-                  <lang.icon className={`w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 ${lang.color} group-hover/lang:scale-110 transition-transform duration-300`} />
-                  <span className="text-gray-600 dark:text-white/80 text-xs sm:text-sm font-medium">{lang.name}</span>
+            {languages.slice(0, showAll ? 7 : 5).map((lang, index) => {
+              const isInitiallyVisible = index < 5;
+              const animationDelay = isInitiallyVisible ? `${0.3 + index * 0.1}s` : '0s';
+              
+              return (
+                <div 
+                  key={lang.name} 
+                  className={`flex items-center justify-between group/lang hover:scale-105 transition-all duration-300 ${
+                    isInitiallyVisible ? 'animate-slide-up' : 'opacity-0 animate-[slideInFast_0.3s_ease-out_forwards]'
+                  }`} 
+                  style={{
+                    animationDelay: animationDelay,
+                    ...((!isInitiallyVisible && showAll) && { 
+                      animation: 'slideInFast 0.3s ease-out forwards',
+                      animationDelay: `${(index - 5) * 0.1}s`
+                    })
+                  }}
+                >
+                  <div className="flex items-center w-20 sm:w-24">
+                    <lang.icon className={`w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 ${lang.color} group-hover/lang:scale-110 transition-transform duration-300`} />
+                    <span className="text-gray-600 dark:text-white/80 text-xs sm:text-sm font-medium">{lang.name}</span>
+                  </div>
+                  <div className="flex-1 mx-2 sm:mx-4 bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 sm:h-2 overflow-hidden">
+                    <div 
+                      className="bg-gradient-to-r from-sky-500 to-blue-500 h-1.5 sm:h-2 rounded-full transition-all duration-2000 group-hover/lang:animate-pulse" 
+                      style={{
+                        width: `${lang.level}%`,
+                        animationDelay: isInitiallyVisible ? `${0.5 + index * 0.2}s` : '0.2s'
+                      }}
+                    ></div>
+                  </div>
+                  <span className="text-xs text-gray-500 dark:text-white/60 min-w-[2.5rem] sm:min-w-[3rem] text-right font-mono">{lang.level}%</span>
                 </div>
-                <div className="flex-1 mx-2 sm:mx-4 bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 sm:h-2 overflow-hidden">
-                  <div 
-                    className="bg-gradient-to-r from-sky-500 to-blue-500 h-1.5 sm:h-2 rounded-full transition-all duration-2000 group-hover/lang:animate-pulse" 
-                    style={{
-                      width: `${lang.level}%`,
-                      animationDelay: `${0.5 + index * 0.2}s`
-                    }}
-                  ></div>
-                </div>
-                <span className="text-xs text-gray-500 dark:text-white/60 min-w-[2.5rem] sm:min-w-[3rem] text-right font-mono">{lang.level}%</span>
-              </div>
-            ))}
+              );
+            })}
           </div>
           <button 
             onClick={() => setShowAll(!showAll)}
@@ -320,12 +337,29 @@ const DataEngSkillCard: React.FC<SkillCardProps> = ({ showAll, setShowAll }) => 
         </h4>
         <div className="flex-1 flex flex-col justify-between">
           <div className="grid grid-cols-3 gap-3">
-            {dataEngTools.slice(0, showAll ? 8 : 6).map((tech, index) => (
-              <div key={tech.name} className="flex flex-col items-center space-y-1 px-2 py-3 bg-white/20 dark:bg-black/20 rounded-lg border border-purple-300/30 hover:scale-125 hover:bg-white/30 dark:hover:bg-black/30 transition-all cursor-default text-center group/icon animate-slide-up" style={{animationDelay: `${0.4 + index * 0.1}s`}}>
-                <tech.icon className={`w-6 h-6 ${tech.color} group-hover/icon:animate-pulse`} />
-                <span className="text-xs font-medium">{tech.name}</span>
-              </div>
-            ))}
+            {dataEngTools.slice(0, showAll ? 8 : 6).map((tech, index) => {
+              const isInitiallyVisible = index < 6;
+              const animationDelay = isInitiallyVisible ? `${0.4 + index * 0.1}s` : '0s';
+              
+              return (
+                <div 
+                  key={tech.name} 
+                  className={`flex flex-col items-center space-y-1 px-2 py-3 bg-white/20 dark:bg-black/20 rounded-lg border border-purple-300/30 hover:scale-125 hover:bg-white/30 dark:hover:bg-black/30 transition-all cursor-default text-center group/icon ${
+                    isInitiallyVisible ? 'animate-slide-up' : 'opacity-0'
+                  }`}
+                  style={{
+                    animationDelay: animationDelay,
+                    ...((!isInitiallyVisible && showAll) && { 
+                      animation: 'slideInFast 0.3s ease-out forwards',
+                      animationDelay: `${(index - 6) * 0.1}s`
+                    })
+                  }}
+                >
+                  <tech.icon className={`w-6 h-6 ${tech.color} group-hover/icon:animate-pulse`} />
+                  <span className="text-xs font-medium">{tech.name}</span>
+                </div>
+              );
+            })}
           </div>
           <button 
             onClick={() => setShowAll(!showAll)}
@@ -365,12 +399,29 @@ const MLAISkillCard: React.FC<SkillCardProps> = ({ showAll, setShowAll }) => {
         </h4>
         <div className="flex-1 flex flex-col justify-between">
           <div className="grid grid-cols-3 gap-3">
-            {mlaiTools.slice(0, showAll ? 10 : 6).map((tech, index) => (
-              <div key={tech.name} className="flex flex-col items-center space-y-1 px-2 py-3 bg-white/20 dark:bg-black/20 rounded-lg border border-green-300/30 hover:scale-125 hover:bg-white/30 dark:hover:bg-black/30 transition-all cursor-default text-center group/icon animate-slide-up" style={{animationDelay: `${0.3 + index * 0.1}s`}}>
-                <tech.icon className={`w-6 h-6 ${tech.color} group-hover/icon:animate-pulse`} />
-                <span className="text-xs font-medium">{tech.name}</span>
-              </div>
-            ))}
+            {mlaiTools.slice(0, showAll ? 10 : 6).map((tech, index) => {
+              const isInitiallyVisible = index < 6;
+              const animationDelay = isInitiallyVisible ? `${0.3 + index * 0.1}s` : '0s';
+              
+              return (
+                <div 
+                  key={tech.name} 
+                  className={`flex flex-col items-center space-y-1 px-2 py-3 bg-white/20 dark:bg-black/20 rounded-lg border border-green-300/30 hover:scale-125 hover:bg-white/30 dark:hover:bg-black/30 transition-all cursor-default text-center group/icon ${
+                    isInitiallyVisible ? 'animate-slide-up' : 'opacity-0'
+                  }`}
+                  style={{
+                    animationDelay: animationDelay,
+                    ...((!isInitiallyVisible && showAll) && { 
+                      animation: 'slideInFast 0.3s ease-out forwards',
+                      animationDelay: `${(index - 6) * 0.1}s`
+                    })
+                  }}
+                >
+                  <tech.icon className={`w-6 h-6 ${tech.color} group-hover/icon:animate-pulse`} />
+                  <span className="text-xs font-medium">{tech.name}</span>
+                </div>
+              );
+            })}
           </div>
           <button 
             onClick={() => setShowAll(!showAll)}
@@ -411,12 +462,29 @@ const DevToolsSkillCard: React.FC<SkillCardProps> = ({ showAll, setShowAll }) =>
         </h4>
         <div className="flex-1 flex flex-col justify-between">
           <div className="grid grid-cols-3 gap-3">
-            {devTools.slice(0, showAll ? 11 : 6).map((tech, index) => (
-              <div key={tech.name} className="flex flex-col items-center space-y-1 px-2 py-3 bg-white/20 dark:bg-black/20 rounded-lg border border-orange-300/30 hover:scale-125 hover:bg-white/30 dark:hover:bg-black/30 transition-all cursor-default text-center group/icon animate-slide-up" style={{animationDelay: `${0.4 + index * 0.1}s`}}>
-                <tech.icon className={`w-6 h-6 ${tech.color} group-hover/icon:animate-pulse`} />
-                <span className="text-xs font-medium">{tech.name}</span>
-              </div>
-            ))}
+            {devTools.slice(0, showAll ? 11 : 6).map((tech, index) => {
+              const isInitiallyVisible = index < 6;
+              const animationDelay = isInitiallyVisible ? `${0.4 + index * 0.1}s` : '0s';
+              
+              return (
+                <div 
+                  key={tech.name} 
+                  className={`flex flex-col items-center space-y-1 px-2 py-3 bg-white/20 dark:bg-black/20 rounded-lg border border-orange-300/30 hover:scale-125 hover:bg-white/30 dark:hover:bg-black/30 transition-all cursor-default text-center group/icon ${
+                    isInitiallyVisible ? 'animate-slide-up' : 'opacity-0'
+                  }`}
+                  style={{
+                    animationDelay: animationDelay,
+                    ...((!isInitiallyVisible && showAll) && { 
+                      animation: 'slideInFast 0.3s ease-out forwards',
+                      animationDelay: `${(index - 6) * 0.1}s`
+                    })
+                  }}
+                >
+                  <tech.icon className={`w-6 h-6 ${tech.color} group-hover/icon:animate-pulse`} />
+                  <span className="text-xs font-medium">{tech.name}</span>
+                </div>
+              );
+            })}
           </div>
           <button 
             onClick={() => setShowAll(!showAll)}
