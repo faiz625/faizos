@@ -3,9 +3,10 @@ import { TabType } from "@/hooks/useNavigation";
 
 interface PhotographyTabProps {
   openTab: (tab: TabType) => void;
+  onPhotoClick?: (photo: Photo, photos: Photo[]) => void;
 }
 
-interface Photo {
+export interface Photo {
   id: string;
   src: string;
   alt: string;
@@ -21,9 +22,8 @@ interface Photo {
   featured?: boolean;
 }
 
-export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab }) => {
+export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab, onPhotoClick }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [lightboxImage, setLightboxImage] = useState<Photo | null>(null);
   const [viewMode, setViewMode] = useState<"grid" | "masonry">("masonry");
 
   const photos: Photo[] = [
@@ -182,7 +182,7 @@ export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab }) => {
     {
       id: "12",
       src: "/photography/other3.jpeg",
-      alt: "Orlando photography",
+      alt: "Disney Castle",
       title: "",
       location: "Orlando, FL",
       date: "November 2024",
@@ -190,7 +190,7 @@ export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab }) => {
       camera: "Nikon D5300",
       lens: "AF-S DX NIKKOR 35mm f/1.8G",
       settings: "f/2.2 • 1/160s • ISO 320",
-      description: "The magic and energy of Orlando captured through creative composition and lighting."
+      description: "The magic and energy of Disney captured through creative composition and fireworks."
     },
   ];
 
@@ -313,7 +313,7 @@ export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab }) => {
                 key={photo.id} 
                 photo={photo} 
                 index={index}
-                onClick={() => setLightboxImage(photo)} 
+                onClick={() => onPhotoClick?.(photo, featuredPhotos)} 
               />
             ))}
           </div>
@@ -333,7 +333,7 @@ export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab }) => {
                 key={photo.id} 
                 photo={photo} 
                 index={index}
-                onClick={() => setLightboxImage(photo)}
+                onClick={() => onPhotoClick?.(photo, filteredPhotos)}
                 layout="grid"
               />
             ))}
@@ -345,7 +345,7 @@ export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab }) => {
                 key={photo.id} 
                 photo={photo} 
                 index={index}
-                onClick={() => setLightboxImage(photo)}
+                onClick={() => onPhotoClick?.(photo, filteredPhotos)}
                 layout="masonry"
               />
             ))}
@@ -354,24 +354,6 @@ export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab }) => {
       </div>
 
       <EquipmentSection />
-
-      {/* Lightbox */}
-      {lightboxImage && (
-        <Lightbox 
-          photo={lightboxImage} 
-          onClose={() => setLightboxImage(null)}
-          onNext={() => {
-            const currentIndex = filteredPhotos.findIndex(p => p.id === lightboxImage.id);
-            const nextIndex = (currentIndex + 1) % filteredPhotos.length;
-            setLightboxImage(filteredPhotos[nextIndex]);
-          }}
-          onPrev={() => {
-            const currentIndex = filteredPhotos.findIndex(p => p.id === lightboxImage.id);
-            const prevIndex = currentIndex === 0 ? filteredPhotos.length - 1 : currentIndex - 1;
-            setLightboxImage(filteredPhotos[prevIndex]);
-          }}
-        />
-      )}
     </div>
   );
 };
@@ -450,97 +432,6 @@ const FeaturedPhotoCard: React.FC<Omit<PhotoCardProps, "layout">> = ({ photo, in
   </div>
 );
 
-interface LightboxProps {
-  photo: Photo;
-  onClose: () => void;
-  onNext: () => void;
-  onPrev: () => void;
-}
-
-const Lightbox: React.FC<LightboxProps> = ({ photo, onClose, onNext, onPrev }) => {
-  return (
-    <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in-scale">
-      {/* Close Button */}
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 z-10 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all hover:scale-110"
-      >
-        <CloseIcon />
-      </button>
-
-      {/* Navigation Buttons */}
-      <button
-        onClick={onPrev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all hover:scale-110"
-      >
-        <ChevronLeftIcon />
-      </button>
-      
-      <button
-        onClick={onNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all hover:scale-110"
-      >
-        <ChevronRightIcon />
-      </button>
-
-      {/* Main Content */}
-      <div className="max-w-6xl max-h-full flex items-center justify-center">
-        <div className="flex flex-col lg:flex-row items-center gap-8 max-h-full">
-          {/* Image */}
-          <div className="flex-1 max-w-4xl">
-            <img 
-              src={photo.src}
-              alt={photo.alt}
-              className="w-full h-auto max-h-[80vh] object-contain rounded-lg shadow-2xl"
-            />
-          </div>
-
-          {/* Photo Info */}
-          <div className="lg:w-80 text-white space-y-4">
-            <div>
-              <h3 className="text-2xl font-bold mb-2">{photo.title}</h3>
-              <p className="text-gray-300 text-sm leading-relaxed">{photo.description}</p>
-            </div>
-
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between">
-                <span className="text-gray-400">Location:</span>
-                <span>{photo.location}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-400">Date:</span>
-                <span>{photo.date}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-400">Category:</span>
-                <span className="capitalize">{photo.category}</span>
-              </div>
-              {photo.camera && (
-                <div className="flex justify-between">
-                  <span className="text-gray-400">Camera:</span>
-                  <span>{photo.camera}</span>
-                </div>
-              )}
-              {photo.lens && (
-                <div className="flex justify-between">
-                  <span className="text-gray-400">Lens:</span>
-                  <span>{photo.lens}</span>
-                </div>
-              )}
-              {photo.settings && (
-                <div className="flex justify-between">
-                  <span className="text-gray-400">Settings:</span>
-                  <span>{photo.settings}</span>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const EquipmentSection: React.FC = () => (
   <div className="animate-slide-up">
     <h3 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white flex items-center">
@@ -611,24 +502,6 @@ const MasonryIcon = () => (
 const ExpandIcon = ({ className }: { className?: string }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-  </svg>
-);
-
-const CloseIcon = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-  </svg>
-);
-
-const ChevronLeftIcon = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-  </svg>
-);
-
-const ChevronRightIcon = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
   </svg>
 );
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigation } from "@/hooks/useNavigation";
 import { useModal } from "@/hooks/useModal";
 import { Navigation } from "@/components/navigation/Navigation";
@@ -8,6 +8,7 @@ import { ProjectsTab } from "@/components/tabs/ProjectsTab";
 import { DemosTab } from "@/components/tabs/DemosTab";
 import { TradingTab } from "@/components/tabs/TradingTab";
 import { PhotographyTab } from "@/components/tabs/PhotographyTab";
+import { PhotoDetailTab, Photo } from "@/components/tabs/PhotoDetailTab";
 import { ContactTab } from "@/components/tabs/ContactTab";
 import { ArchModal, ArchModalContent } from "@/components/modal/ArchModal";
 import { ProjectItem } from "@/components/SectionCards";
@@ -17,6 +18,10 @@ import ConfidentialFooter from "@/components/ConfidentialFooter";
 export const Layout: React.FC = () => {
   const { activeTab, mobileMenuOpen, setMobileMenuOpen, openTab } = useNavigation();
   const { modalState, openModal, closeModal } = useModal();
+  
+  // Photography state
+  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
+  const [allPhotos, setAllPhotos] = useState<Photo[]>([]);
 
   const handleProjectClick = async (item: ProjectItem) => {
     if (item.architecture) {
@@ -32,6 +37,16 @@ export const Layout: React.FC = () => {
     }
   };
 
+  const handlePhotoClick = (photo: Photo, photos: Photo[]) => {
+    setSelectedPhoto(photo);
+    setAllPhotos(photos);
+    openTab("photography-detail");
+  };
+
+  const handlePhotoChange = (photo: Photo) => {
+    setSelectedPhoto(photo);
+  };
+
   const renderTabContent = () => {
     switch (activeTab) {
       case "home":
@@ -45,7 +60,22 @@ export const Layout: React.FC = () => {
       case "trading":
         return <TradingTab openTab={openTab} />;
       case "photography":
-        return <PhotographyTab openTab={openTab} />;
+        return <PhotographyTab openTab={openTab} onPhotoClick={handlePhotoClick} />;
+      case "photography-detail":
+        if (!selectedPhoto || allPhotos.length === 0) {
+          // Fallback to photography tab if no photo is selected
+          openTab("photography");
+          return <PhotographyTab openTab={openTab} onPhotoClick={handlePhotoClick} />;
+        }
+        return (
+          <PhotoDetailTab
+            openTab={openTab}
+            photo={selectedPhoto}
+            photos={allPhotos}
+            currentIndex={allPhotos.findIndex(p => p.id === selectedPhoto.id)}
+            onPhotoChange={handlePhotoChange}
+          />
+        );
       case "contact":
         return <ContactTab openTab={openTab} />;
       default:
