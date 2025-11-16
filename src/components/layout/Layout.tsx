@@ -8,10 +8,11 @@ import { ProjectsTab } from "@/components/tabs/ProjectsTab";
 import { DemosTab } from "@/components/tabs/DemosTab";
 import { TradingTab } from "@/components/tabs/TradingTab";
 import { PhotographyTab } from "@/components/tabs/PhotographyTab";
-import { PhotoDetailTab, Photo } from "@/components/tabs/PhotoDetailTab";
+import { PhotoDetailTab } from "@/components/tabs/PhotoDetailTab";
 import { ContactTab } from "@/components/tabs/ContactTab";
 import { ArchModal, ArchModalContent } from "@/components/modal/ArchModal";
 import { ProjectItem } from "@/components/SectionCards";
+import { Photo } from "@/types/photography";
 import Particles from "@/components/Particles";
 import ConfidentialFooter from "@/components/ConfidentialFooter";
 

@@ -1,25 +1,10 @@
 import React, { useState } from "react";
 import { TabType } from "@/hooks/useNavigation";
+import { Photo } from "@/types/photography";
 
 interface PhotographyTabProps {
   openTab: (tab: TabType) => void;
   onPhotoClick?: (photo: Photo, photos: Photo[]) => void;
-}
-
-export interface Photo {
-  id: string;
-  src: string;
-  alt: string;
-  title: string;
-  location: string;
-  date: string;
-  category: "city" | "sunset" | "other";
-  categories?: ("city" | "sunset" | "other")[]; // Multiple categories support
-  camera?: string;
-  lens?: string;
-  settings?: string;
-  description: string;
-  featured?: boolean;
 }
 
 export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab, onPhotoClick }) => {
@@ -45,7 +30,7 @@ export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab, onPhoto
     {
       id: "2",
       src: "/photography/city1.jpeg",
-      alt: "Toronto downtown",
+      alt: "Toronto Clock Tower",
       title: "",
       location: "Downtown Toronto, ON",
       date: "November 2024",
@@ -53,12 +38,12 @@ export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab, onPhoto
       camera: "Nikon D5300",
       lens: "AF-S DX NIKKOR 18-140mm f/3.5-5.6G VR",
       settings: "f/8 • 1/125s • ISO 200",
-      description: "The vibrant heart of Canada's largest city with its iconic urban landscape."
+      description: "Right outside nathan phillips square, capturing the historic clock tower against the urban backdrop."
     },
     {
       id: "3",
       src: "/photography/city2.jpeg",
-      alt: "Scarborough cityscape",
+      alt: "Backyard Rabbit",
       title: "",
       location: "Scarborough, ON",
       date: "November 2024",
@@ -66,13 +51,13 @@ export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab, onPhoto
       camera: "Nikon D5300",
       lens: "AF-S DX NIKKOR 35mm f/1.8G",
       settings: "f/2.0 • 1/400s • ISO 320",
-      description: "Capturing the diverse urban character of Scarborough's bustling neighborhoods."
+      description: "A curious rabbit exploring a suburban backyard"
     },
     // City + Sunset combination photos
     {
       id: "4",
       src: "/photography/city_sunset.jpeg",
-      alt: "Toronto sunset skyline",
+      alt: "Toronto's Dundas Street sunset",
       title: "",
       location: "Downtown Toronto, ON",
       date: "November 2024",
@@ -81,28 +66,28 @@ export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab, onPhoto
       camera: "Nikon D5300",
       lens: "AF-S DX NIKKOR 18-140mm f/3.5-5.6G VR",
       settings: "f/11 • 1/60s • ISO 100",
-      description: "Toronto's magnificent skyline bathed in the warm glow of golden hour light.",
+      description: "Toronto's Dundas Street bathed in the warm sunset glow.",
       featured: true
     },
     {
       id: "5",
       src: "/photography/city_sunset1.jpeg",
-      alt: "Scarborough sunset",
+      alt: "Markham sunset",
       title: "",
-      location: "Scarborough, ON",
+      location: "Markham, ON",
       date: "November 2024",
       category: "sunset",
       categories: ["city", "sunset"],
       camera: "Nikon D5300",
       lens: "AF-S DX NIKKOR 18-140mm f/3.5-5.6G VR",
       settings: "f/8 • 1/250s • ISO 200",
-      description: "The peaceful evening atmosphere as sunset paints the Scarborough skyline."
+      description: "Cars and sunset while walking through the suburbs."
     },
     // Sunset photos
     {
       id: "6",
       src: "/photography/sunset.jpeg",
-      alt: "Jamaica beach sunset",
+      alt: "Jamaica sunset",
       title: "",
       location: "Montego Bay, Jamaica",
       date: "November 2024",
@@ -116,7 +101,7 @@ export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab, onPhoto
     {
       id: "7",
       src: "/photography/sunset1.jpeg",
-      alt: "Dominican Republic sunset",
+      alt: "Dominican Republic Sunset",
       title: "",
       location: "Dominican Republic",
       date: "November 2024",
@@ -124,12 +109,12 @@ export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab, onPhoto
       camera: "Nikon D5300",
       lens: "AF-S DX NIKKOR 18-140mm f/3.5-5.6G VR",
       settings: "f/8 • 1/125s • ISO 200",
-      description: "The serene beauty of a Caribbean sunset painting the Dominican sky in vibrant colors."
+      description: "The serene beauty of a Caribbean sunset painting the Dominican sky in vibrant colors and reflecting over the water."
     },
     {
       id: "8",
       src: "/photography/sunset2.jpeg",
-      alt: "Scarborough sunset",
+      alt: "Scarborough Sunset",
       title: "",
       location: "Scarborough, ON",
       date: "November 2024",
@@ -137,7 +122,7 @@ export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab, onPhoto
       camera: "Nikon D5300",
       lens: "AF-S DX NIKKOR 18-140mm f/3.5-5.6G VR",
       settings: "f/11 • 1/30s • ISO 100",
-      description: "The gentle evening light over Scarborough's landscape as day transitions to night."
+      description: "The gentle sunset over Scarborough's suburban landscape."
     },
     // Other category photos
     {
@@ -151,7 +136,7 @@ export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab, onPhoto
       camera: "Nikon D5300",
       lens: "AF-S DX NIKKOR 35mm f/1.8G",
       settings: "f/2.8 • 1/200s • ISO 250",
-      description: "Capturing the quiet charm and character of Markham's suburban landscape."
+      description: "Outing with friends"
     },
     {
       id: "10",
@@ -164,7 +149,7 @@ export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab, onPhoto
       camera: "Nikon D5300",
       lens: "AF-S DX NIKKOR 35mm f/1.8G",
       settings: "f/4 • 1/320s • ISO 400",
-      description: "The spiritual essence and architectural beauty of the holy city of Medina."
+      description: "The spiritual essence and architectural beauty of the holy city of Medina as lightning hits at a perfect angle."
     },
     {
       id: "11",
@@ -177,7 +162,7 @@ export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab, onPhoto
       camera: "Nikon D5300",
       lens: "AF-S DX NIKKOR 35mm f/1.8G",
       settings: "f/2.5 • 1/200s • ISO 320",
-      description: "The vibrant culture and natural beauty of the Dominican Republic's diverse landscape."
+      description: "The vibrant culture and natural beauty of the Dominican Republic's diverse beach landscape."
     },
     {
       id: "12",
@@ -387,9 +372,22 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo, index, onClick, layout = "
         <h4 className="font-bold text-lg mb-1">{photo.title}</h4>
         <p className="text-sm text-gray-200 mb-2">{photo.location} • {photo.date}</p>
         <div className="flex items-center justify-between">
-          <span className="text-xs bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm">
-            {photo.category}
-          </span>
+          <div className="flex flex-wrap gap-1">
+            {photo.categories && photo.categories.length > 0 ? (
+              photo.categories.map((cat, index) => (
+                <span
+                  key={index}
+                  className="text-xs bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm capitalize"
+                >
+                  {cat}
+                </span>
+              ))
+            ) : (
+              <span className="text-xs bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm capitalize">
+                {photo.category}
+              </span>
+            )}
+          </div>
           <ExpandIcon className="w-5 h-5" />
         </div>
       </div>
@@ -424,6 +422,22 @@ const FeaturedPhotoCard: React.FC<Omit<PhotoCardProps, "layout">> = ({ photo, in
           <div>
             <p className="text-sm text-gray-300">{photo.location}</p>
             <p className="text-xs text-gray-400">{photo.settings}</p>
+            <div className="flex flex-wrap gap-1 mt-2">
+              {photo.categories && photo.categories.length > 0 ? (
+                photo.categories.map((cat, index) => (
+                  <span
+                    key={index}
+                    className="text-xs bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm capitalize"
+                  >
+                    {cat}
+                  </span>
+                ))
+              ) : (
+                <span className="text-xs bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm capitalize">
+                  {photo.category}
+                </span>
+              )}
+            </div>
           </div>
           <ExpandIcon className="w-6 h-6" />
         </div>
