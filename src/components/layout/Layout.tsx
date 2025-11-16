@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigation } from "@/hooks/useNavigation";
+import { TabType } from "@/types/navigation";
 import { useModal } from "@/hooks/useModal";
 import { Navigation } from "@/components/navigation/Navigation";
 import { HomeTab } from "@/components/tabs/HomeTab";

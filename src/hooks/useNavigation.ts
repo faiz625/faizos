@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { TabType } from "@/types/navigation";
 
-export type TabType = "home" | "about" | "projects" | "demos" | "trading" | "photography" | "contact";
+export type { TabType };
 
 export const useNavigation = () => {
   const [activeTab, setActiveTab] = useState<TabType>("home");
@@ -10,7 +11,7 @@ export const useNavigation = () => {
   useEffect(() => {
     const getTabFromHash = (): TabType => {
       const hash = window.location.hash.slice(1); // Remove the '#'
-      const validTabs: TabType[] = ["home", "about", "projects", "demos", "trading", "photography", "contact"];
+      const validTabs: TabType[] = ["home", "about", "projects", "demos", "trading", "photography", "photography-detail", "contact"];
       return validTabs.includes(hash as TabType) ? (hash as TabType) : "home";
     };
 

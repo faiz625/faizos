@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TabType } from "@/hooks/useNavigation";
+import { TabType } from "@/types/navigation";
 import { Photo } from "@/types/photography";
 
 interface PhotographyTabProps {

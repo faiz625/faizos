@@ -1,0 +1,1 @@
+export type TabType = "home" | "about" | "projects" | "demos" | "trading" | "photography" | "photography-detail" | "contact";
