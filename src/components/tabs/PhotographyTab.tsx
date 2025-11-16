@@ -216,7 +216,7 @@ export const PhotographyTab: React.FC<PhotographyTabProps> = ({ openTab, onPhoto
           Visual Stories
         </h2>
         <p className="text-gray-600 dark:text-white/70 text-lg max-w-3xl mx-auto mb-8 leading-relaxed">
-          Photography is my creative outlet—a way to capture fleeting moments, explore composition, and tell stories through visual narratives. 
+          Photography is my creative outlet, a way to capture fleeting moments, explore composition, and tell stories through visual narratives. 
           Each image documents the intersection of technology, nature, and human experience.
         </p>
 
